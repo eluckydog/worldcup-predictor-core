@@ -1,0 +1,128 @@
+{
+  "tournament": "2026 FIFA World Cup",
+  "year": 2026,
+  "format": "12 groups of 4",
+  "hosts": ["USA", "Mexico", "Canada"],
+  "groups": [
+    {
+      "group": "A",
+      "name": "Group A",
+      "teams": [
+        {"name": "USA", "fifa_rank": 11, "is_debutant": false, "is_host": true, "group": "A", "aliases": ["美国", "United States"]},
+        {"name": "Mexico", "fifa_rank": 14, "is_debutant": false, "is_host": true, "group": "A", "aliases": ["墨西哥"]},
+        {"name": "Canada", "fifa_rank": 48, "is_debutant": false, "is_host": true, "group": "A", "aliases": ["加拿大"]},
+        {"name": "TBD_A1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "A", "aliases": []}
+      ]
+    },
+    {
+      "group": "B",
+      "name": "Group B",
+      "teams": [
+        {"name": "Brazil", "fifa_rank": 5, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["巴西"]},
+        {"name": "Italy", "fifa_rank": 9, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["意大利"]},
+        {"name": "Japan", "fifa_rank": 18, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["日本"]},
+        {"name": "Jamaica", "fifa_rank": 60, "is_debutant": true, "is_host": false, "group": "B", "aliases": ["牙买加"]}
+      ]
+    },
+    {
+      "group": "C",
+      "name": "Group C",
+      "teams": [
+        {"name": "France", "fifa_rank": 2, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["法国"]},
+        {"name": "Netherlands", "fifa_rank": 6, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["荷兰"]},
+        {"name": "Nigeria", "fifa_rank": 38, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["尼日利亚"]},
+        {"name": "TBD_C1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "C", "aliases": []}
+      ]
+    },
+    {
+      "group": "D",
+      "name": "Group D",
+      "teams": [
+        {"name": "Argentina", "fifa_rank": 1, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["阿根廷"]},
+        {"name": "England", "fifa_rank": 4, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["英格兰"]},
+        {"name": "Senegal", "fifa_rank": 20, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["塞内加尔"]},
+        {"name": "TBD_D1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "D", "aliases": []}
+      ]
+    },
+    {
+      "group": "E",
+      "name": "Group E",
+      "teams": [
+        {"name": "Spain", "fifa_rank": 8, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["西班牙"]},
+        {"name": "Germany", "fifa_rank": 10, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["德国"]},
+        {"name": "South Korea", "fifa_rank": 23, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["韩国", "Korea Republic"]},
+        {"name": "TBD_E1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "E", "aliases": []}
+      ]
+    },
+    {
+      "group": "F",
+      "name": "Group F",
+      "teams": [
+        {"name": "Portugal", "fifa_rank": 7, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["葡萄牙"]},
+        {"name": "Uruguay", "fifa_rank": 15, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["乌拉圭"]},
+        {"name": "Croatia", "fifa_rank": 12, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["克罗地亚"]},
+        {"name": "TBD_F1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "F", "aliases": []}
+      ]
+    },
+    {
+      "group": "G",
+      "name": "Group G",
+      "teams": [
+        {"name": "Belgium", "fifa_rank": 3, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["比利时"]},
+        {"name": "Colombia", "fifa_rank": 16, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["哥伦比亚"]},
+        {"name": "Morocco", "fifa_rank": 13, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["摩洛哥"]},
+        {"name": "TBD_G1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "G", "aliases": []}
+      ]
+    },
+    {
+      "group": "H",
+      "name": "Group H",
+      "teams": [
+        {"name": "Switzerland", "fifa_rank": 17, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["瑞士"]},
+        {"name": "Ecuador", "fifa_rank": 32, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["厄瓜多尔"]},
+        {"name": "Iran", "fifa_rank": 21, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["伊朗"]},
+        {"name": "TBD_H1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "H", "aliases": []}
+      ]
+    },
+    {
+      "group": "I",
+      "name": "Group I",
+      "teams": [
+        {"name": "Denmark", "fifa_rank": 19, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["丹麦"]},
+        {"name": "Australia", "fifa_rank": 29, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["澳大利亚"]},
+        {"name": "Türkiye", "fifa_rank": 35, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["土耳其", "Turkey"]},
+        {"name": "TBD_I1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "I", "aliases": []}
+      ]
+    },
+    {
+      "group": "J",
+      "name": "Group J",
+      "teams": [
+        {"name": "Poland", "fifa_rank": 28, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["波兰"]},
+        {"name": "Cameroon", "fifa_rank": 44, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["喀麦隆"]},
+        {"name": "Saudi Arabia", "fifa_rank": 53, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["沙特阿拉伯", "沙特"]},
+        {"name": "TBD_J1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "J", "aliases": []}
+      ]
+    },
+    {
+      "group": "K",
+      "name": "Group K",
+      "teams": [
+        {"name": "Serbia", "fifa_rank": 33, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["塞尔维亚"]},
+        {"name": "Peru", "fifa_rank": 31, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["秘鲁"]},
+        {"name": "Ghana", "fifa_rank": 58, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["加纳"]},
+        {"name": "TBD_K1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "K", "aliases": []}
+      ]
+    },
+    {
+      "group": "L",
+      "name": "Group L",
+      "teams": [
+        {"name": "TBD_L0", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []},
+        {"name": "TBD_L1", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []},
+        {"name": "TBD_L2", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []},
+        {"name": "TBD_L3", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []}
+      ]
+    }
+  ]
+}
