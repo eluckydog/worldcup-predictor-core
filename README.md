@@ -1,7 +1,9 @@
 # ⚽ 2026 World Cup Daily Predictor
 
+🇬🇧 [`README.en.md`](./README.en.md) · 🇨🇳 [`README.zh.md`](./README.zh.md) · 🇯🇵 [`README.ja.md`](./README.ja.md) · 🇫🇷 [`README.fr.md`](./README.fr.md) · 🇩🇪 [`README.de.md`](./README.de.md) · 🇪🇸 [`README.es.md`](./README.es.md) · 🇸🇦 [`README.ar.md`](./README.ar.md) · 🇮🇳 [`README.hi.md`](./README.hi.md) · 🇰🇷 [`README.ko.md`](./README.ko.md)
+
 **Dual-engine prediction system** combining Poisson regression with causal inference.  
-**100% open source · MIT license · [9 languages](#read--阅读)**
+**100% open source · MIT license**
 
 ---
 
@@ -30,22 +32,6 @@ print(f"1X2: {result.prob_home:.1%} / {result.prob_draw:.1%} / {result.prob_away
 print(f"Confidence: {result.confidence:.2f}")
 print(f"Engine: {result.engine_used}")
 ```
-
----
-
-## 📖 Read / 阅读
-
-| Language | File |
-|----------|------|
-| 🇬🇧 **English** (full docs) | [`README.en.md`](./README.en.md) |
-| 🇨🇳 **中文** | [`README.zh.md`](./README.zh.md) |
-| 🇯🇵 **日本語** | [`README.ja.md`](./README.ja.md) |
-| 🇫🇷 **Français** | [`README.fr.md`](./README.fr.md) |
-| 🇩🇪 **Deutsch** | [`README.de.md`](./README.de.md) |
-| 🇪🇸 **Español** | [`README.es.md`](./README.es.md) |
-| 🇸🇦 **العربية** | [`README.ar.md`](./README.ar.md) |
-| 🇮🇳 **हिन्दी** | [`README.hi.md`](./README.hi.md) |
-| 🇰🇷 **한국어** | [`README.ko.md`](./README.ko.md) |
 
 ---
 
