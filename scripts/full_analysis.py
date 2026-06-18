@@ -113,7 +113,8 @@ def parse_prediction(output):
                     v=float(p)
                     if data["exp_home"]==0: data["exp_home"]=v
                     elif data["exp_away"]==0: data["exp_away"]=v; break
-                except: continue
+                except (ValueError, TypeError):
+                    continue
         elif "概率分布" in line:
             nums=re.findall(r"(\d+\.\d)%",line)
             if len(nums)>=3:
@@ -131,7 +132,8 @@ def parse_prediction(output):
                     v=float(p)
                     if v>1: continue
                     data["confidence"]=v
-                except: continue
+                except (ValueError, TypeError):
+                    continue
     return data
 
 def main():

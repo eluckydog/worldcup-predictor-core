@@ -124,7 +124,8 @@ def parse_pred(output):
                     v=float(p)
                     if d["eh"]==0: d["eh"]=v
                     elif d["ea"]==0: d["ea"]=v; break
-                except: continue
+                except (ValueError, TypeError):
+                    continue
         elif "概率分布" in ln:
             ns=re.findall(r"(\d+\.?\d*)%",ln)
             if len(ns)>=3:
@@ -139,7 +140,8 @@ def parse_pred(output):
                 try:
                     v=float(p)
                     if 0<v<=1: d["conf"]=v
-                except: continue
+                except (ValueError, TypeError):
+                    continue
     return d
 
 def render_1x2(hp, dp, ap):

@@ -42,6 +42,9 @@ from .data_types import (
     MatchContext,
     HeadToHead,
     RecentMatch,
+    ProbEstimate,
+    ScoreProb,
+    SimulationResult,
 )
 from .engine_poisson import (
     DIXON_COLES_RHO,
