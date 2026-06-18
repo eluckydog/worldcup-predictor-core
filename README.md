@@ -15,6 +15,8 @@
 | 🇩🇪 **Deutsch** | [`README.de.md`](./README.de.md) |
 | 🇪🇸 **Español** | [`README.es.md`](./README.es.md) |
 | 🇸🇦 **العربية** | [`README.ar.md`](./README.ar.md) |
+| 🇮🇳 **हिन्दी** | [`README.hi.md`](./README.hi.md) |
+| 🇰🇷 **한국어** | [`README.ko.md`](./README.ko.md) |
 
 ---
 
