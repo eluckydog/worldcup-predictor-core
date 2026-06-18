@@ -19,6 +19,7 @@ Phase 4 增强：
 from typing import Optional, Tuple
 
 from .data_types import (
+    OddsFusionResult,
     PoissonPrediction,
     CausalPrediction,
     CausalSignal,
