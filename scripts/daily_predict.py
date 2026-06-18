@@ -277,7 +277,7 @@ def main():
     print(report)
 
     if save:
-        save_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "predictions", f"{today_str}.md")
+        save_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "predictions", f"{today_str}_daily_report.md")
         with open(save_path, "w", encoding="utf-8") as f:
             f.write(report)
         print(f"\n📁 Saved to {save_path}", file=sys.stderr)

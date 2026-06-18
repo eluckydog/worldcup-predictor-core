@@ -5,6 +5,8 @@
 **Dual-engine prediction system** combining Poisson regression with causal inference.  
 **100% open source · MIT license**
 
+![MD1 Backtest + Confidence Calibration](assets/backtest_chart.png)
+
 ---
 
 ## 🤖 For AI Agents
@@ -37,7 +39,14 @@ print(f"Engine: {result.engine_used}")
 
 ## 📊 Live Predictions
 
-**Daily prediction reports → [`predictions/`](./predictions/)**
+- **[2026-06-18 Daily Report](predictions/2026-06-18_daily_report.md)** — 24 backtested matches + 48 upcoming predictions
+- Future reports will be auto-generated daily via GitHub Actions
+
+### Model Performance Tracking
+
+| Date | Predicted | Correct | Accuracy |
+|------|-----------|---------|----------|
+| 2026-06-18 | 24 | 11 | 45.8% |
 
 ---
 

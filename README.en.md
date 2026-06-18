@@ -4,6 +4,16 @@ A **dual-engine fusion** of Poisson regression + causal inference + multi-source
 
 **Predictions updated daily via GitHub Actions → [`predictions/`](./predictions/)**
 
+- **[2026-06-18 Daily Report](predictions/2026-06-18_daily_report.md)** — 24 backtested matches + 48 upcoming predictions
+
+### Model Performance Tracking
+
+| Date | Predicted | Correct | Accuracy |
+|------|-----------|---------|----------|
+| 2026-06-18 | 24 | 11 | 45.8% |
+
+_This table updates after each matchday. At tournament end, it becomes a complete model validation report._
+
 **100% open source · MIT license**
 
 ---
@@ -182,7 +192,7 @@ Mexico vs South Korea | mode=auto
 └── LICENSE              # MIT
 ```
 
-## 🏆 Track Record
+## 🏆 Track Record (MD1)
 
 | Metric | Value |
 |--------|-------|
