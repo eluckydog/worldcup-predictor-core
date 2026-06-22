@@ -1,68 +1,91 @@
-# ⚽ 2026 World Cup Daily Predictor
+# ⚽ 2026 World Cup Predictor — Unified Pipeline
 
 🇬🇧 [`README.en.md`](./README.en.md) · 🇨🇳 [`README.zh.md`](./README.zh.md) · 🇯🇵 [`README.ja.md`](./README.ja.md) · 🇫🇷 [`README.fr.md`](./README.fr.md) · 🇩🇪 [`README.de.md`](./README.de.md) · 🇪🇸 [`README.es.md`](./README.es.md) · 🇸🇦 [`README.ar.md`](./README.ar.md) · 🇮🇳 [`README.hi.md`](./README.hi.md) · 🇰🇷 [`README.ko.md`](./README.ko.md)
 
-**Dual-engine prediction system** combining Poisson regression with causal inference.  
+**Dual-engine prediction system** combining Dixon-Coles Poisson regression with causal inference.  
+**One command: DC → calibration → standings → stakes → MC → report**  
 **100% open source · MIT license**
 
-![MD1 Backtest + Confidence Calibration](assets/backtest_chart.png)
-
 ---
 
-## 🤖 For AI Agents
+## Quick Start
 
-A Python-based World Cup 2026 match predictor using:
-- **Dual-engine architecture**: Dixon-Coles Poisson regression + Causal inference (Double-ML/DAG)
-- **Multi-source odds fusion**: 4 sources (500.com, JC SP, international, fallback) with auto margin removal
-- **Monte Carlo simulation**: 50k trials per match with conditional branching
-- **Bayesian belief tracking**: Beta-Binomial conjugate updates
-- **BPD irrationality detection**: Market anomaly detection
-- **Confidence calibration**: 50.0% overall (21/40); 62.5% at ≥0.60 threshold (MD1+MD2 real-world data)
+```bash
+pip install -r requirements.txt
 
-**CLI interface**: `python main.py --home <team> --away <team> [--use-odds] [--mode auto|classic|causal-only|debug]`  
-**Daily automation**: GitHub Actions runs 2x/day, saves to `predictions/`  
-**Qualification engine**: FIFA tiebreakers (head-to-head mini-league → GD → GF), third-placed ranking, R32 bracket generation
+# Full prediction report (72 matches, 2.5s)
+python scripts/run.py
 
-**Data**: 964 historical matches (1930-2022), 48 teams, 1245 player records
+# With Monte Carlo simulation of total draws
+python scripts/run.py --mc
 
-```python
-# Quick integration example
-import sys, subprocess
-sys.path.insert(0, "/path/to/worldcup-predictor-core")
-from main import run_prediction
-
-result = run_prediction("Brazil", "Argentina")
-print(f"1X2: {result.prob_home:.1%} / {result.prob_draw:.1%} / {result.prob_away:.1%}")
-print(f"Confidence: {result.confidence:.2f}")
-print(f"Engine: {result.engine_used}")
+# Save report to predictions/
+python scripts/run.py --save --mc
 ```
 
----
+## Current Performance (MD1+MD2, 40 matches)
 
-## 📊 Live Predictions
+| Metric | Value |
+|--------|-------|
+| Baseline accuracy | 52.5% (21/40) |
+| Calibrated (+10% draw bonus) | 55.0% (22/40) |
+| ≥0.60 confidence threshold | **62.5%** (10/16) |
+| 2002-2022 MC backtest (288 matches) | 63.9% (+10%Δ vs 62.8% baseline) |
+| Completed draw rate | **32.5%** (vs historical 24.6%) |
 
-- **[2026-06-22 Daily Report](predictions/2026-06-22_daily_report.md)** — 40 backtested matches + 32 upcoming predictions + qualification report
-- Future reports will be auto-generated daily via GitHub Actions
+> MC projection: P50 = **23 draws / 32.0%** (100k trials) · Full docs: [`docs/MODELING.md`](docs/MODELING.md)
 
-### Model Performance Tracking
+## Pipeline
 
-| Date | Round | Predicted | Correct | Accuracy |
-|------|-------|-----------|---------|----------|
-| 2026-06-18 | MD1 | 24 | 11 | 45.8% |
-| 2026-06-22 | MD1+MD2 | 40 | 21 | **52.5%** |
+```
+python scripts/run.py
+  ├─ data/matches.py           ← 72 matches (single source of truth)
+  ├─ main.run_prediction()     ← DC Poisson + causal selector
+  ├─ core/calibration.py       ← +10% uniform draw bonus
+  ├─ core/stakes.py            ← MD3 group situation + bracket incentive
+  ├─ core/monte_carlo.py       ← 100k trials for total draw projection
+  └─ Full report → stdout / predictions/
+```
 
-### Qualification Status (after MD2)
+## Project Structure
+
+```
+├── main.py              # CLI entry (single match)
+├── core/
+│   ├── engine_poisson.py # Dixon-Coles bivariate Poisson
+│   ├── engine_causal.py  # Causal inference (Double-ML/DAG)
+│   ├── selector.py       # Dual-engine gate
+│   ├── monte_carlo.py    # 50k MC simulation per match
+│   ├── calibration.py    # Uniform +10% draw calibration
+│   ├── stakes.py         # MD3 group situation + bracket analysis
+│   ├── bracket.py        # FIFA-compliant standings + R32 bracket
+│   ├── fusion.py         # Odds fusion (4-source)
+│   ├── bayesian.py       # Beta-Binomial belief tracking
+│   └── irrationality.py  # Market anomaly detection
+├── data/
+│   ├── matches.py        # 72 match tuples (single source)
+│   ├── worldcup.db       # 964 historical matches (1930-2022)
+│   └── data_adapter.py   # SQLite query layer
+├── scripts/
+│   ├── run.py            # ★ ONE-COMMAND PIPELINE
+│   ├── daily_predict.py  # Original daily runner (reads data/matches.py)
+│   ├── full_analysis.py  # Full backtest suite
+│   └── verify_odds.py    # Odds data validation
+├── predictions/          # Daily prediction reports
+├── docs/
+│   └── MODELING.md       # Full modeling methodology (4 layers + draw theory)
+└── README.md             # ← this file
+```
+
+## Qualification Status (after MD2, 40 of 72 matches)
 
 | Stage | Status |
 |-------|--------|
 | Group winners locked | 12/12 (Mexico, Canada, Brazil, USA, Germany, Netherlands, Egypt, Spain, Norway, Argentina, Colombia, England) |
-| Top third-placed (8 qualify) | Sweden (F), Scotland (C), Paraguay (D), Cape Verde (H), Belgium (G), DR Congo (K), Czech Republic (A), Ecuador (E) |
-| Matches remaining | 32 (Group MD3) |
-| Max margin for 3rd place | Bosnia (1pt, GD -3) — can still qualify with MD3 win |
-| Eliminated from R32 | Panama, Senegal, Jordan (0pts after 1 match each)
+| Runners-up | S. Korea, Switzerland, Morocco, Australia, Côte d'Ivoire, Japan, Iran, Uruguay, France, Austria, Portugal, Ghana |
+| Best 3rd-placed (8 qualify) | Sweden(F), Scotland(C), Paraguay(D), Cape Verde(H), Belgium(G), DR Congo(K), Czech R.(A), Ecuador(E) |
+| MD3 remaining | 24 matches · 8 MD2 · 32 total |
 
----
-
-## 📄 License
+## License
 
 **MIT** — free for any use.

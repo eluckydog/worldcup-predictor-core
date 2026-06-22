@@ -2,9 +2,19 @@
 
 A **dual-engine fusion** of Poisson regression + causal inference + multi-source market odds.
 
-**Predictions updated daily via GitHub Actions → [`predictions/`](./predictions/)**
+**Predictions updated daily → [`predictions/`](./predictions/)**
 
-- **[2026-06-22 Daily Report](predictions/2026-06-22_daily_report.md)** — 40 backtested matches + 32 upcoming predictions + qualification report
+### Quick Start
+
+```bash
+pip install -r requirements.txt
+
+# Unified pipeline: DC → calibration → standings → stakes → MC → report
+python scripts/run.py
+
+# With Monte Carlo simulation (total draw projection)
+python scripts/run.py --mc --save
+```
 
 ### Model Performance Tracking
 
@@ -12,8 +22,12 @@ A **dual-engine fusion** of Poisson regression + causal inference + multi-source
 |------|-------|-----------|---------|----------|
 | 2026-06-18 | MD1 | 24 | 11 | 45.8% |
 | 2026-06-22 | MD1+MD2 | 40 | 21 | **52.5%** |
+| 2026-06-22 | MD1+MD2 (calibrated +10%) | 40 | 22 | **55.0%** |
 
-_This table updates after each matchday. At tournament end, it becomes a complete model validation report._
+| Historical MC backtest (2002-2022) | 288 matches | Baseline 62.8% | +10% Δ → **63.9%** |
+| MC projection (2026 remaining 32) | 100k trials | P50 = 23 draws / **32.0%** | |
+
+_Table updates after each matchday. Details in [`docs/MODELING.md`](docs/MODELING.md)._
 
 **100% open source · MIT license**
 
@@ -23,213 +37,145 @@ _This table updates after each matchday. At tournament end, it becomes a complet
 
 | Stage | Status |
 |-------|--------|
-| Group winners locked | 12/12 |
-| Top third-placed (8 qualify) | Sweden (F), Scotland (C), Paraguay (D), Cape Verde (H), Belgium (G), DR Congo (K), Czech Republic (A), Ecuador (E) |
-| Matches remaining | 32 (Group MD3) |
+| Group winners locked | Mexico(A), Canada(B), Brazil(C), USA(D), Germany(E), Netherlands(F), Egypt(G), Spain(H), Norway(I), Argentina(J), Colombia(K), England(L) |
+| Runners-up | S. Korea(A), Switzerland(B), Morocco(C), Australia(D), Côte d'Ivoire(E), Japan(F), Iran(G), Uruguay(H), France(I), Austria(J), Portugal(K), Ghana(L) |
+| Best 3rd-placed (8 qualify) | Sweden(F), Scotland(C), Paraguay(D), Cape Verde(H), Belgium(G), DR Congo(K), Czech R.(A), Ecuador(E) |
+| Matches remaining | 8 MD2 + 24 MD3 = 32 total |
+| Can still qualify | Bosnia(1pt GD-3), Senegal(0pt GD-2), Jordan(0pt GD-2), Panama(0pt GD-1) |
 
-Full FIFA tiebreaker resolution (head-to-head mini-league) implemented in [`core/bracket.py`](core/bracket.py).
-
----
-
-## 📊 MD1+MD2 Results — Prediction vs Actual
-
-### Matchday 1 (11/24 correct, 45.8%)
-
-| Match | Pred | Actual | Result |
-|-------|------|--------|--------|
-| Mexico vs South Africa | H | H | ✅ |
-| South Korea vs Czech Republic | H | H | ✅ |
-| Qatar vs Switzerland | H | D | ❌ |
-| Canada vs Jordan | A | D | ❌ |
-| Brazil vs Morocco | H | D | ❌ |
-| Scotland vs Haiti | H | H | ✅ |
-| USA vs Paraguay | H | H | ✅ |
-| Australia vs Turkey | H | H | ✅ |
-| Germany vs Curaçao | H | H | ✅ |
-| Côte d'Ivoire vs Ecuador | A | H | ❌ |
-| Sweden vs Tunisia | H | H | ✅ |
-| Japan vs Netherlands | A | D | ❌ |
-| Belgium vs Egypt | H | D | ❌ |
-| Iran vs New Zealand | A | D | ❌ |
-| Spain vs Cape Verde | H | D | ❌ |
-| Saudi Arabia vs Uruguay | A | D | ❌ |
-| France vs Senegal | H | H | ✅ |
-| Norway vs Iraq | A | H | ❌ |
-| Argentina vs Algeria | H | H | ✅ |
-| Austria vs Jordan | A | H | ❌ |
-| Portugal vs DR Congo | H | D | ❌ |
-| Uzbekistan vs Colombia | A | A | ✅ |
-| England vs Croatia | H | H | ✅ |
-| Ghana vs Panama | A | H | ❌ |
-
-> **Total: 11/24 correct (45.8%)**
-
-### Matchday 2 (10/16 correct, 62.5%)
-
-| Match | Pred | Actual | Result |
-|-------|------|--------|--------|
-| Mexico vs South Korea | H | H | ✅ |
-| Czech Republic vs South Africa | H | D | ❌ |
-| Canada vs Qatar | A | H | ❌ |
-| Switzerland vs Bosnia and Herzegovina | A | H | ❌ |
-| Brazil vs Haiti | H | H | ✅ |
-| Scotland vs Morocco | A | A | ✅ |
-| USA vs Australia | H | H | ✅ |
-| Turkey vs Paraguay | A | A | ✅ |
-| Germany vs Côte d'Ivoire | H | H | ✅ |
-| Ecuador vs Curaçao | H | D | ❌ |
-| Netherlands vs Sweden | H | H | ✅ |
-| Tunisia vs Japan | A | A | ✅ |
-| Belgium vs Iran | H | D | ❌ |
-| New Zealand vs Egypt | H | A | ❌ |
-| Spain vs Saudi Arabia | H | H | ✅ |
-| Uruguay vs Cape Verde | H | D | ❌ |
-
-> **Total: 10/16 correct (62.5%)**
-
-### Combined: **21/40 correct (52.5%)**
+➡ Full FIFA tiebreaker resolution (head-to-head mini-league) in [`core/bracket.py`](core/bracket.py).
 
 ---
 
-## 🔮 MD3 Predictions (Upcoming)
+## 🔮 MD2 + MD3 Predictions (32 upcoming matches)
 
-| Match | Pick | Confidence |
-|-------|------|------------|
-| Mexico vs South Korea | H | 46% |
-| Czech Republic vs South Africa | H | 49% |
-| Canada vs Qatar | A | 42% |
-| Switzerland vs Bosnia and Herzegovina | A | 41% |
-| Brazil vs Scotland | H | 69% |
-| Morocco vs Haiti | H | 35% |
-| USA vs Australia | H | 44% |
-| Paraguay vs Turkey | H | 42% |
-| Germany vs Côte d'Ivoire | H | 62% |
-| Ecuador vs Curaçao | H | 42% |
-| Sweden vs Japan | H | 47% |
-| Netherlands vs Tunisia | H | 76% |
-| Belgium vs Iran | H | 51% |
-| New Zealand vs Egypt | H | 40% |
-| Spain vs Saudi Arabia | H | 79% |
-| Uruguay vs Cape Verde | H | 45% |
-| France vs Norway | H | 61% |
-| Senegal vs Iraq | A | 60% |
-| Argentina vs Austria | H | 44% |
-| Algeria vs Jordan | A | 46% |
-| Portugal vs Uzbekistan | H | 45% |
-| DR Congo vs Colombia | A | 42% |
+_MD3 stakes analysis integrated: each match's group situation + knockout bracket incentive considered._
 
-> **H = Home Win · D = Draw · A = Away Win**
+### MD2 (8 matches)
+
+| Group | Home | Away | H | D | A | Calibrated | Pick |
+|-------|------|------|---|---|---|-------------|------|
+| I | Iraq | France | 40% | 25% | 35% | 36%/32%/32% | 🏠 Home |
+| I | Norway | Senegal | 36% | 27% | 37% | 33%/34%/34% | ✈️ Away |
+| J | Austria | Argentina | 34% | 22% | 44% | 31%/29%/40% | ✈️ Away |
+| J | Jordan | Algeria | 46% | 29% | 25% | 42%/35%/23% | 🏠 Home |
+| K | Portugal | Uzbekistan | 40% | 27% | 33% | 36%/34%/30% | 🏠 Home |
+| K | Colombia | DR Congo | 43% | 28% | 29% | 39%/35%/26% | 🏠 Home |
+| L | England | Ghana | 55% | 25% | 20% | 50%/32%/18% | 🏠 Home |
+| L | Croatia | Panama | 44% | 28% | 28% | 40%/35%/25% | 🏠 Home |
+
+### MD3 (24 matches) — with stakes analysis
+
+| Group | Match | Scenario | Pick |
+|-------|-------|----------|------|
+| A | Czech Republic vs Mexico | Mexico locked 1st, Czech can't advance | 🏠 Home |
+| A | South Africa vs South Korea | Korea needs win to advance | ✈️ Away |
+| **B** | **Switzerland vs Canada** | **DRAW ADVANCES BOTH (both 4pts, tiebreaker)** | **🤝 Draw** |
+| B | Qatar vs Bosnia and Herzegovina | Both eliminated if other result holds | ✈️ Away |
+| C | Brazil vs Scotland | Brazil 4pts, Scotland 3pts. Brazil safe, Scotland needs help | 🏠 Home |
+| **C** | **Morocco vs Haiti** | **Morocco 4pts, Haiti 0pts. Draw enough for Morocco** | **🤝 Draw** |
+| D | USA vs Turkey | USA locked 1st, Turkey eliminated | 🏠 Home |
+| D | Australia vs Paraguay | Both 3pts. Winner likely qualifies, loser fights 3rd | ✈️ Away |
+| E | Germany vs Ecuador | Germany locked 1st, Ecuador out | 🏠 Home |
+| E | Côte d'Ivoire vs Curaçao | CIV 3pts needs win to guarantee 2nd | 🏠 Home |
+| F | Netherlands vs Tunisia | NED 4pts vs TUN 0pts | 🏠 Home |
+| F | Sweden vs Japan | Both in contention (SWE 3pts, JPN 4pts) | 🏠 Home |
+| **G** | **Belgium vs New Zealand** | **BEL 2pts, NZ 1pt. Draw helps both but need other result** | **🤝 Draw** |
+| G | Iran vs Egypt | Iran (2pt) must win; Egypt (4pt) draw enough | ✈️ Away |
+| H | Spain vs Uruguay | ESP 4pts, URU 2pts. Spain win = 1st | 🏠 Home |
+| H | Saudi Arabia vs Cape Verde | Both can still qualify with win | ✈️ Away |
+| I | France vs Norway | Both 3pts. Draw advances both (winner→3R1, runner-up→Spain) | 🏠 Home |
+| I | Iraq vs Senegal | Both 0pts, must win to have any chance | 🏠 Home |
+| J | Algeria vs Austria | Both can still qualify with win | ✈️ Away |
+| J | Jordan vs Argentina | ARG locked 1st, JOR can qualify with win + help | ✈️ Away |
+| K | Portugal vs Colombia | POR 1pt, COL 3pts. Portugal must win | 🏠 Home |
+| K | Uzbekistan vs DR Congo | Both 0-1pts, winners could qualify as 3rd | 🏠 Home |
+| L | Ghana vs Croatia | GHA 3pts, CRO 0pts. Ghana can secure 2nd with result | ✈️ Away |
+| L | England vs Panama | ENG 3pts, PAN 0pts. England can lock 1st | 🏠 Home |
 
 ---
 
 ## ⚡ What Makes This Different
 
-Most football prediction projects pick one model and call it a day. This one doesn't:
-
-- **Dual-engine architecture** — Poisson and Causal models compete on every match; the selector picks the best
-- **Market-aware** — 4-source odds fusion (500.com, JC SP, international, fallback) with automatic juice removal and credibility weighting
-- **Calibration-aware** — we measure confidence vs accuracy explicitly. MD1 showed 66.7% accuracy at ≥0.60 confidence threshold (9/24 matches), and we publish the full calibration table
-- **Transparent by design** — every prediction comes with a confidence score, an engine selection reason, and a probability distribution. No black box
-- **Daily automation** — GitHub Actions runs predictions twice a day with no human intervention
-
-**This is an open-source engineering experiment.** 964 historical matches, 50k MC simulations per match, BPD irrationality detection, Bayesian belief tracking, FIFA-compliant qualification & bracket engine — all in one Python repo. Fork it, break it, make it better.
+- **Dual-engine architecture** — Poisson and Causal models compete on every match; selector picks the best
+- **Calibration-aware** — explicit draw calibration (+10% uniform bonus from 2002-2022 MC optimization)
+- **Stakes analysis (LLM)** — MD3 group situations integrated (draw advances both, must-win, bracket incentive)
+- **Monte Carlo simulation** — 100k trials for total draw projection; P50=23 draws / 32.0%
+- **Multi-source odds fusion**  — 4 sources (500.com, JC SP, international, fallback) with juice removal
+- **Transparent by design**  — every prediction with confidence score, engine selection, and full probability distribution
+- **FIFA-compliant** — head-to-head tiebreakers, third-placed ranking, R32 bracket generation
 
 ---
 
 ## 🧠 Architecture
 
 ```
-┌──────────────────────────────────────────────────────┐
-│                   main.py (CLI)                       │
-├──────────────────────────────────────────────────────┤
-│                    Selector                           │
-│         (Poisson ↔ Causal dual-engine gate)          │
-├──────────────────────────────────────────────────────┤
-│   ┌─────────────────┐   ┌─────────────────────────┐  │
-│   │ Engine: Poisson  │   │   Engine: Causal        │  │
-│   │ (Dixon-Coles)    │   │   (Double-ML / DAG)    │  │
-│   └────────┬─────────┘   └──────────┬──────────────┘  │
-│            │                        │                  │
-├────────────┴────────────────────────┴──────────────────┤
-│                  Monte Carlo Simulator                  │
-│               (50k trials per match)                    │
-├────────────────────────────────────────────────────────┤
-│   Odds Fusion           │   Bayesian Update            │
-│   (Multi-source odds    │   (Beta-Binomial             │
-│    → λ bias adjustment)  │    belief tracking)          │
-├────────────────────────────────────────────────────────┤
-│   Data: 964 historical matches (1930-2022) + live odds │
-└────────────────────────────────────────────────────────┘
+                           scripts/run.py
+                                │
+              ┌─────────────────┼──────────────────┐
+              ▼                 ▼                   ▼
+        DC Predictions     Calibration        Stakes Analysis
+        (main.py)         (+10% draw Δ)      (group scenario
+              │                              + bracket incentive)
+              ▼
+        ┌─────────────────────────────────────┐
+        │     Monte Carlo Simulator           │
+        │  (100k trials, total draw forecast) │
+        └─────────────────┬───────────────────┘
+                          ▼
+        ┌─────────────────────────────────────┐
+        │     Report (standings + qualifiers) │
+        └─────────────────────────────────────┘
 ```
 
-## ✨ Features
+### Layer Architecture (see [`docs/MODELING.md`](docs/MODELING.md))
 
-- 🎯 **Dual-engine selector** — dynamically chooses between Poisson (classic) and Causal models per match based on data quality
-- 🔄 **50k Monte Carlo simulation** — conditional branching sampling for goal probability distributions
-- 📊 **Multi-source odds fusion** — integrates 500.com average, JC SP, and international odds with automatic juice removal
-- 🧠 **Bayesian belief tracking** — Beta-Binomial conjugate updates as the tournament progresses
-- 🔍 **Irrationality detection** — BPD (Behavioral Pattern Decoder) for detecting market anomalies
-- 📅 **Historical data** — 971 matches from every World Cup since 1930
+| Layer | Component | Purpose |
+|-------|-----------|---------|
+| 0 | DC Poisson | Dixon-Coles model, bivariate joint grid |
+| 1 | Calibration | Uniform +10% draw probability boost |
+| 2 | LLM Stakes | Group scenario analysis + bracket incentive |
+| 3 | MC Simulation | 100k trial total draw projection |
 
-## 🚀 Quick Start
+## 🚀 All Commands
 
 ```bash
-pip install -r requirements.txt
-
-# Single match prediction
+# Quick prediction (single match)
 python main.py --home "Brazil" --away "Argentina"
 
-# With odds correction
-python main.py --home "Mexico" --away "South Korea" --use-odds
+# Full pipeline
+python scripts/run.py --mc --save
 
-# Full daily prediction
+# Traditional daily runner
 python scripts/daily_predict.py --save
-```
-
-## 📋 Example Output
-
-```
-Mexico vs South Korea | mode=auto
-┌──────────────────────────────────────┐
-│ 引擎选择: poisson(主0.85) + causal(辅0.15) │
-│ 预期进球: 1.95 - 1.58                   │
-│ 概率分布: H 46.0% / D 23.0% / A 31.0%  │
-│ 最可能比分: 1:1 (p=10%)                 │
-│ 置信度: 0.74                            │
-└──────────────────────────────────────┘
 ```
 
 ## 📁 Project Structure
 
 ```
-├── main.py              # CLI entry point
-├── core/                # Prediction engine modules
-│   ├── bayesian.py      # Bayesian belief tracking
-│   ├── data_types.py    # Shared types & odds records
-│   ├── engine_causal.py # Causal inference (Double-ML)
-│   ├── engine_poisson.py# Dixon-Coles bivariate Poisson
-│   ├── fusion.py        # Dual-engine fusion & odds
-│   ├── irrationality.py # BPD pattern detector
-│   ├── knox_client.py   # Knox.chat LLM integration
-│   ├── monte_carlo.py   # 50k MC simulation
-│   ├── pathway.py       # Entity-relation pathway scoring
-│   ├── selector.py      # Dual-engine selector gate
-│   └── team_resolver.py # Name resolution & aliases
+├── main.py              # CLI entry (single match mode)
+├── core/
+│   ├── engine_poisson.py # Dixon-Coles bivariate Poisson
+│   ├── engine_causal.py  # Causal inference (Double-ML/DAG)
+│   ├── selector.py       # Dual-engine selector gate
+│   ├── monte_carlo.py    # MC simulation engine
+│   ├── calibration.py    # Uniform draw calibration (+10%)
+│   ├── stakes.py         # MD3 group situation + bracket analysis
+│   ├── bracket.py        # FIFA standings + R32 bracket
+│   ├── fusion.py         # Multi-source odds fusion
+│   └── bayesian.py       # Beta-Binomial belief tracking
 ├── data/
-│   ├── data_adapter.py  # SQLite query layer
-│   ├── importer.py      # Historical data parser
-│   ├── odds_provider.py # Multi-source odds fetcher
-│   ├── worldcup.db      # 971 matches (1930-2022)
-│   └── wc2026.json      # Tournament group layout
+│   ├── matches.py        # 72 match tuples (single source of truth)
+│   ├── worldcup.db       # 964 historical matches (1930-2022)
+│   └── data_adapter.py   # SQLite query layer
 ├── scripts/
-│   ├── daily_predict.py # Automated daily runner
-│   ├── full_analysis.py # Full backtest suite
-│   └── verify_odds.py   # Odds data validation
-├── predictions/         # Daily prediction reports
-├── README.md            # Landing page (bilingual)
-├── README.en.md         # English docs
-├── README.zh.md         # 中文文档
-└── LICENSE              # MIT
+│   ├── run.py            # ★ Unified pipeline (recommended)
+│   ├── daily_predict.py  # Original daily runner
+│   └── full_analysis.py  # Full backtest suite
+├── predictions/          # Daily prediction reports
+├── docs/
+│   └── MODELING.md       # Full modeling methodology
+└── README.*.md           # Multi-language docs
 ```
 
 ## 🏆 Track Record (MD1+MD2)
@@ -237,74 +183,35 @@ Mexico vs South Korea | mode=auto
 | Metric | Value |
 |--------|-------|
 | Completed Matches | 40 |
-| 1X2 Accuracy | **52.5%** (21/40) |
+| 1X2 Accuracy (baseline) | **52.5%** (21/40) |
+| 1X2 Accuracy (calibrated +10%) | **55.0%** (22/40) |
 | MD1 Accuracy | **45.8%** (11/24) |
 | MD2 Accuracy | **62.5%** (10/16) |
-| Mid-confidence (0.50-0.69) | **58.6%** (17/29) |
+| ≥0.60 confidence threshold | **62.5%** (10/16) |
+| Historical MC backtest (288 matches) | 63.9% (+10% Δ) |
+| Completed draw rate | **32.5%** (13/40) |
 
-> 📌 **Note:** Draw rate remains high (~50% of incorrects were draws).
+### Confidence Calibration
 
-### Confidence Calibration / Accuracy by Threshold (MD1 only)
-
-Accuracy **improves significantly** when low-confidence predictions are excluded:
-
-| Threshold | Matches Kept | Accuracy | Note |
-|-----------|-------------|----------|------|
-| All 24 | 24 | 45.8% | Baseline |
-| ≥ 0.40 | 21 | 52.4% | Drops 3 (all wrong) |
-| ≥ 0.50 | 18 | 50.0% | Drops 6 (2/6 correct) |
-| ≥ 0.55 | 17 | 52.9% | Drops 7 (2/7 correct) |
-| **≥ 0.60** | **9** | **66.7%** | Best threshold — 2/3 accuracy |
-| ≥ 0.65 | 6 | 50.0% | Drops 18 (8/18 correct) |
-| ≥ 0.70 | 4 | 25.0% | Worst — model was most confident on upsets |
-
-> **Key insight (MD1):** Highest-confidence predictions (≥0.70) were the least accurate — the model was confidently wrong on Brazil-Morocco, Saudi-Uruguay, Japan-Netherlands upsets.
-
-### Full MD1+MD2 Calibration (40 matches)
-
-| Threshold | Matches Kept | Accuracy |
-|-----------|-------------|----------|
+| Threshold | Matches | Accuracy |
+|-----------|---------|----------|
 | All 40 | 40 | 52.5% |
-| ≥ 0.40 | 36 | 55.6% |
 | ≥ 0.50 | 29 | 58.6% |
 | ≥ 0.55 | 23 | 60.9% |
-| ≥ 0.60 | 16 | **62.5%** |
+| **≥ 0.60** | **16** | **62.5%** |
 | ≥ 0.65 | 11 | 54.5% |
-| ≥ 0.70 | 6 | 33.3% |
 
-> **Key insight (MD1+MD2):** The ≥0.60 threshold remains the best calibration point at 62.5% across 16 matches.
+## 💡 Draw Prediction Methodology
 
----
+**Key insight:** Single-match "Draw pick" is rare (DC model dp 20-30% can't beat H or A). Draws are cumulative — the model predicts ~32% draw rate at tournament level, not individual draw picks.
 
-## 🧪 How the Selector Works
+See [`docs/MODELING.md`](docs/MODELING.md) for:
+- Complete modeling methodology (4 layers)
+- MC backtest validation (2002-2022, 288 matches)
+- Historical draw rate analysis
+- Calibration optimization
 
-The selector evaluates **4 dimensions** per match:
-
-| Dimension | What it checks |
-|-----------|---------------|
-| Historical data volume | Does this matchup have enough past games? |
-| DAG coverage | Does the causal graph cover relevant factors? |
-| Poisson fit | How well do goal distributions fit? |
-| Structural breaks | Have recent results shifted dynamics? |
-
-**Modes:** `classic` (Poisson only) · `causal-only` · `auto` (recommended) · `debug`
-
-## 📈 How Odds Fusion Works
-
-```
-Raw Odds → Remove Juice → Normalize to Probabilities
-→ Weight by source credibility → Fuse → Convert to λ bias
-→ Adjust Poisson λ for each team → Run MC simulation
-```
-
-| Source | Vig | Weight |
-|--------|-----|--------|
-| 500.com average | ~6% | 0.94 (high) |
-| JC SP (竞彩SP) | ~13% | 0.89 (low) |
-| Foreign (international) | varies | varies |
-| Simulated (fallback) | N/A | fallback only |
-
-## 🔧 Dependencies
+## ⚙️ Dependencies
 
 - Python 3.10+
 - `numpy`, `scipy`, `pandas`
