@@ -20,99 +20,12 @@ except AttributeError:
     pass
 
 from main import run_prediction
+from core.calibration import calibrate, pick_outcome, pick_outcome_original
 
 CST = timezone(timedelta(hours=8))
 
-# ── Match Database: 72 group stage matches ──
-# Aligned to actual 2026 WC schedule (user's fixture text)
-# (group, home, away, actual_home, actual_away, matchday, source)
-# actual_home=None → not yet played
-MATCHES = [
-    # Group A
-    ("A","Mexico","South Africa",2,0,1,"DB"),
-    ("A","South Korea","Czech Republic",2,1,1,"DB"),
-    ("A","Czech Republic","South Africa",1,1,2,"WEB"),
-    ("A","Mexico","South Korea",1,0,2,"WEB"),
-    ("A","Czech Republic","Mexico",None,None,3,"PENDING"),
-    ("A","South Africa","South Korea",None,None,3,"PENDING"),
-    # Group B  (Canada, Bosnia, Qatar, Switzerland)
-    ("B","Canada","Bosnia and Herzegovina",1,1,1,"WEB"),
-    ("B","Switzerland","Qatar",1,1,1,"WEB"),
-    ("B","Switzerland","Bosnia and Herzegovina",4,1,2,"WEB"),
-    ("B","Canada","Qatar",6,0,2,"WEB"),
-    ("B","Switzerland","Canada",None,None,3,"PENDING"),
-    ("B","Qatar","Bosnia and Herzegovina",None,None,3,"PENDING"),
-    # Group C  (Brazil, Morocco, Haiti, Scotland)
-    ("C","Morocco","Brazil",1,1,1,"WEB"),
-    ("C","Haiti","Scotland",0,1,1,"WEB"),
-    ("C","Scotland","Morocco",0,1,2,"WEB"),
-    ("C","Brazil","Haiti",3,0,2,"WEB"),
-    ("C","Brazil","Scotland",None,None,3,"PENDING"),
-    ("C","Morocco","Haiti",None,None,3,"PENDING"),
-    # Group D  (USA, Paraguay, Australia, Turkey)
-    ("D","Paraguay","USA",1,4,1,"WEB"),
-    ("D","Turkey","Australia",0,2,1,"WEB"),
-    ("D","USA","Australia",2,0,2,"WEB"),
-    ("D","Turkey","Paraguay",0,1,2,"WEB"),
-    ("D","USA","Turkey",None,None,3,"PENDING"),
-    ("D","Australia","Paraguay",None,None,3,"PENDING"),
-    # Group E  (Germany, Curaçao, Ivory Coast, Ecuador)
-    ("E","Curaçao","Germany",1,7,1,"WEB"),
-    ("E","Ecuador","Côte d'Ivoire",0,1,1,"WEB"),
-    ("E","Germany","Côte d'Ivoire",2,1,2,"WEB"),
-    ("E","Ecuador","Curaçao",0,0,2,"WEB"),
-    ("E","Germany","Ecuador",None,None,3,"PENDING"),
-    ("E","Côte d'Ivoire","Curaçao",None,None,3,"PENDING"),
-    # Group F  (Netherlands, Japan, Sweden, Tunisia)
-    ("F","Japan","Netherlands",2,2,1,"WEB"),
-    ("F","Sweden","Tunisia",5,1,1,"WEB"),
-    ("F","Netherlands","Sweden",5,1,2,"WEB"),
-    ("F","Tunisia","Japan",0,4,2,"WEB"),
-    ("F","Netherlands","Tunisia",None,None,3,"PENDING"),
-    ("F","Sweden","Japan",None,None,3,"PENDING"),
-    # Group G  (Belgium, Egypt, Iran, New Zealand)
-    ("G","Belgium","Egypt",1,1,1,"WEB"),
-    ("G","New Zealand","Iran",2,2,1,"WEB"),
-    ("G","Belgium","Iran",0,0,2,"WEB"),
-    ("G","New Zealand","Egypt",1,3,2,"WEB"),
-    ("G","Belgium","New Zealand",None,None,3,"PENDING"),
-    ("G","Iran","Egypt",None,None,3,"PENDING"),
-    # Group H  (Spain, Cape Verde, Saudi Arabia, Uruguay)
-    ("H","Cape Verde","Spain",0,0,1,"WEB"),
-    ("H","Uruguay","Saudi Arabia",1,1,1,"WEB"),
-    ("H","Spain","Saudi Arabia",4,0,2,"WEB"),
-    ("H","Uruguay","Cape Verde",2,2,2,"WEB"),
-    ("H","Spain","Uruguay",None,None,3,"PENDING"),
-    ("H","Saudi Arabia","Cape Verde",None,None,3,"PENDING"),
-    # Group I  (France, Senegal, Iraq, Norway)
-    ("I","France","Senegal",3,1,1,"WEB"),
-    ("I","Norway","Iraq",4,1,1,"WEB"),
-    ("I","Iraq","France",None,None,2,"PENDING"),
-    ("I","Norway","Senegal",None,None,2,"PENDING"),
-    ("I","France","Norway",None,None,3,"PENDING"),
-    ("I","Iraq","Senegal",None,None,3,"PENDING"),
-    # Group J  (Argentina, Algeria, Austria, Jordan)
-    ("J","Algeria","Argentina",0,3,1,"WEB"),  # original had Argentina 3-0 Algeria → Algeria 0-3 Argentina
-    ("J","Jordan","Austria",1,3,1,"WEB"),  # original had Austria 3-1 Jordan → Jordan 1-3 Austria
-    ("J","Austria","Argentina",None,None,2,"PENDING"),
-    ("J","Jordan","Algeria",None,None,2,"PENDING"),
-    ("J","Algeria","Austria",None,None,3,"PENDING"),
-    ("J","Jordan","Argentina",None,None,3,"PENDING"),
-    # Group K  (Portugal, DR Congo, Uzbekistan, Colombia)
-    ("K","Portugal","DR Congo",1,1,1,"WEB"),
-    ("K","Uzbekistan","Colombia",1,3,1,"WEB"),
-    ("K","Portugal","Uzbekistan",None,None,2,"PENDING"),
-    ("K","Colombia","DR Congo",None,None,2,"PENDING"),
-    ("K","Portugal","Colombia",None,None,3,"PENDING"),
-    ("K","Uzbekistan","DR Congo",None,None,3,"PENDING"),
-    # Group L  (England, Croatia, Ghana, Panama)
-    ("L","Croatia","England",2,4,1,"WEB"),  # original had England 4-2 Croatia → Croatia 2-4 England
-    ("L","Panama","Ghana",0,1,1,"WEB"),  # original had Ghana 1-0 Panama → Panama 0-1 Ghana
-    ("L","England","Ghana",None,None,2,"PENDING"),
-    ("L","Croatia","Panama",None,None,2,"PENDING"),
-    ("L","Ghana","Croatia",None,None,3,"PENDING"),
-    ("L","England","Panama",None,None,3,"PENDING"),
-]
+from data.matches import MATCHES
+
 
 def parse_pred(output):
     d = {"hp":0,"dp":0,"ap":0,"eh":0,"ea":0,"ml":"","mlp":0,"conf":0,"engine":""}
@@ -145,10 +58,21 @@ def parse_pred(output):
                     continue
     return d
 
-def render_1x2(hp, dp, ap):
+def render_1x2(hp, dp, ap, calibrated=False):
+    if calibrated:
+        hp_c, dp_c, ap_c = calibrate(hp/100, dp/100, ap/100)
+        hp, dp, ap = hp_c*100, dp_c*100, ap_c*100
     if hp > max(dp, ap): return f"Home ({hp:.0f}%)"
     if dp > max(hp, ap): return f"Draw ({dp:.0f}%)"
     return f"Away ({ap:.0f}%)"
+
+
+def render_1x2_both(hp, dp, ap):
+    orig = render_1x2(hp, dp, ap, calibrated=False)
+    cal = render_1x2(hp, dp, ap, calibrated=True)
+    if orig == cal:
+        return orig
+    return f"{orig} \u2192 {cal} (calibrated)"
 
 def group_standings(completed):
     from collections import defaultdict
@@ -175,7 +99,7 @@ def main():
     upcoming = [m for m in MATCHES if m[3] is None]
 
     # Sort upcoming: today's matches first (by expected kickoff time)
-    # We use MD order: earlier MD → earlier in day
+    # We use MD order: earlier MD -> earlier in day
     upcoming.sort(key=lambda m: (m[5], m[0]))
 
     lines = []
@@ -211,11 +135,34 @@ def main():
         ok = pred_1x2 == act_1x2
         if ok: total_ok += 1
         icon = "✅" if ok else "❌"
-        lines.append(f"| {g} | {h} vs {a} | {render_1x2(hp,dp,ap)} ({hp:.0f}/{dp:.0f}/{ap:.0f}) | {ha}-{aa} | {icon} {pred_1x2}→{act_1x2} | {d['conf']:.2f} |")
+        lines.append(f"| {g} | {h} vs {a} | {render_1x2(hp,dp,ap,calibrated=False)} ({hp:.0f}/{dp:.0f}/{ap:.0f}) | {ha}-{aa} | {icon} {pred_1x2}->{act_1x2} | {d['conf']:.2f} |")
 
     acc = total_ok/len(completed)*100 if completed else 0
     lines.append(f"\n**Backtest: {total_ok}/{len(completed)} correct ({acc:.1f}%)**")
     lines.append(f"")
+    lines.append(f"\n**With draw calibration (+12% dp bonus):**")
+    cal_total_ok = 0
+    cal_correct_list = []
+    for g,h,a,ha,aa,md,src in completed:
+        try:
+            out = run_prediction(h, a, mode="auto", seed=42)
+            d = parse_pred(out)
+            hp,dp,ap = d["hp"],d["dp"],d["ap"]
+            hp_c, dp_c, ap_c = calibrate(hp/100, dp/100, ap/100)
+            cal_pred = pick_outcome(hp_c, dp_c, ap_c)
+            act_1x2 = "H" if ha>aa else ("D" if ha==aa else "A")
+            cal_ok = cal_pred == act_1x2
+            cal_correct_list.append((g, h, a, ha, aa, cal_pred, act_1x2, cal_ok))
+            if cal_ok:
+                cal_total_ok += 1
+        except:
+            pass
+    cal_acc = cal_total_ok/len(completed)*100 if completed else 0
+    lines.append(f"**Calibrated: {cal_total_ok}/{len(completed)} correct ({cal_acc:.1f}%)**")
+    if cal_acc > acc:
+        lines.append(f"_Improvement: +{cal_acc-acc:.1f}pp (+{cal_total_ok-total_ok} more correct)_")
+    elif cal_acc < acc:
+        lines.append(f"_Delta reduces accuracy; switch to baseline or recalibrate._")
 
     # ── Part 2: Upcoming predictions ──
     lines.append(f"\n## 🔮 Upcoming Match Predictions")
@@ -234,12 +181,18 @@ def main():
             continue
 
         hp,dp,ap = d["hp"],d["dp"],d["ap"]
-        tip = render_1x2(hp,dp,ap)
+        tip_orig = render_1x2(hp,dp,ap,calibrated=False)
+        tip_cal = render_1x2(hp,dp,ap,calibrated=True)
+        # Calibrated probabilities
+        hp_c, dp_c, ap_c = calibrate(hp/100, dp/100, ap/100)
+        hp_c, dp_c, ap_c = hp_c*100, dp_c*100, ap_c*100
+        cal_same = tip_orig == tip_cal
+        cal_note = "" if cal_same else f" (calibrated: {tip_cal}; H {hp_c:.0f}%/D {dp_c:.0f}%/A {ap_c:.0f}%)"
         lines.append(f"\n- **[{g}]** {h} vs {a}")
-        lines.append(f"  - Expected goals: {d['eh']:.2f}–{d['ea']:.2f}")
-        lines.append(f"  - Probability: H {hp:.0f}% / D {dp:.0f}% / A {ap:.0f}%")
+        lines.append(f"  - Expected goals: {d['eh']:.2f}--{d['ea']:.2f}")
+        lines.append(f"  - Probability: H {hp:.0f}% / D {dp:.0f}% / A {ap:.0f}%{cal_note}")
         lines.append(f"  - Most likely: {d['ml']} (p={d['mlp']:.0f}%)")
-        lines.append(f"  - Pick: {tip} (confidence: {d['conf']:.2f})")
+        lines.append(f"  - Pick: {tip_orig} (confidence: {d['conf']:.2f})")
 
     # ── Part 3: Group standings ──
     lines.append(f"\n## 📊 Group Standings")
@@ -279,7 +232,7 @@ def main():
     lines.append(f"```")
 
     lines.append(f"\n---")
-    lines.append(f"\n*Data: 964 historical World Cup matches (1930-2022). Engine: Poisson + Causal dual-selector.*")
+    lines.append(f"\n*Data: 964 historical World Cup matches (1930-2022). Engine: Poisson + Causal dual-selector. Calibration: uniform +12% dp bonus.*")
     lines.append(f"\n*[Source code](https://github.com/) | *Disclaimer: Statistical model, not betting advice.*")
 
     report = "\n".join(lines)
