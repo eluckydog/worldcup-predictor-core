@@ -24,93 +24,94 @@ from main import run_prediction
 CST = timezone(timedelta(hours=8))
 
 # ── Match Database: 72 group stage matches ──
+# Aligned to actual 2026 WC schedule (user's fixture text)
 # (group, home, away, actual_home, actual_away, matchday, source)
 # actual_home=None → not yet played
 MATCHES = [
     # Group A
     ("A","Mexico","South Africa",2,0,1,"DB"),
     ("A","South Korea","Czech Republic",2,1,1,"DB"),
-    ("A","Mexico","South Korea",None,None,2,"PENDING"),
-    ("A","Czech Republic","South Africa",None,None,2,"PENDING"),
-    ("A","South Africa","South Korea",None,None,3,"PENDING"),
+    ("A","Czech Republic","South Africa",1,1,2,"WEB"),
+    ("A","Mexico","South Korea",1,0,2,"WEB"),
     ("A","Czech Republic","Mexico",None,None,3,"PENDING"),
-    # Group B
-    ("B","Qatar","Switzerland",1,1,1,"DB"),
-    ("B","Canada","Jordan",1,1,1,"DB"),
-    ("B","Canada","Qatar",None,None,2,"PENDING"),
-    ("B","Switzerland","Bosnia and Herzegovina",None,None,2,"PENDING"),
-    ("B","Jordan","Switzerland",None,None,3,"PENDING"),
-    ("B","Bosnia and Herzegovina","Canada",None,None,3,"PENDING"),
-    # Group C
-    ("C","Brazil","Morocco",1,1,1,"DB"),
-    ("C","Scotland","Haiti",1,0,1,"DB"),
-    ("C","Brazil","Scotland",None,None,2,"PENDING"),
-    ("C","Morocco","Haiti",None,None,2,"PENDING"),
-    ("C","Haiti","Scotland",None,None,3,"PENDING"),
-    ("C","Morocco","Brazil",None,None,3,"PENDING"),
-    # Group D
-    ("D","USA","Paraguay",4,1,1,"DB"),
-    ("D","Australia","Turkey",2,0,1,"DB"),
-    ("D","USA","Australia",None,None,2,"PENDING"),
-    ("D","Paraguay","Turkey",None,None,2,"PENDING"),
-    ("D","Turkey","USA",None,None,3,"PENDING"),
-    ("D","Paraguay","Australia",None,None,3,"PENDING"),
-    # Group E
-    ("E","Germany","Curaçao",7,1,1,"WEB"),
-    ("E","Côte d'Ivoire","Ecuador",1,0,1,"WEB"),
-    ("E","Germany","Côte d'Ivoire",None,None,2,"PENDING"),
-    ("E","Ecuador","Curaçao",None,None,2,"PENDING"),
-    ("E","Ecuador","Germany",None,None,3,"PENDING"),
-    ("E","Curaçao","Côte d'Ivoire",None,None,3,"PENDING"),
-    # Group F
-    ("F","Sweden","Tunisia",5,1,1,"WEB"),
+    ("A","South Africa","South Korea",None,None,3,"PENDING"),
+    # Group B  (Canada, Bosnia, Qatar, Switzerland)
+    ("B","Canada","Bosnia and Herzegovina",1,1,1,"WEB"),
+    ("B","Switzerland","Qatar",1,1,1,"WEB"),
+    ("B","Switzerland","Bosnia and Herzegovina",4,1,2,"WEB"),
+    ("B","Canada","Qatar",6,0,2,"WEB"),
+    ("B","Switzerland","Canada",None,None,3,"PENDING"),
+    ("B","Qatar","Bosnia and Herzegovina",None,None,3,"PENDING"),
+    # Group C  (Brazil, Morocco, Haiti, Scotland)
+    ("C","Morocco","Brazil",1,1,1,"WEB"),
+    ("C","Haiti","Scotland",0,1,1,"WEB"),
+    ("C","Scotland","Morocco",0,1,2,"WEB"),
+    ("C","Brazil","Haiti",3,0,2,"WEB"),
+    ("C","Brazil","Scotland",None,None,3,"PENDING"),
+    ("C","Morocco","Haiti",None,None,3,"PENDING"),
+    # Group D  (USA, Paraguay, Australia, Turkey)
+    ("D","Paraguay","USA",1,4,1,"WEB"),
+    ("D","Turkey","Australia",0,2,1,"WEB"),
+    ("D","USA","Australia",2,0,2,"WEB"),
+    ("D","Turkey","Paraguay",0,1,2,"WEB"),
+    ("D","USA","Turkey",None,None,3,"PENDING"),
+    ("D","Australia","Paraguay",None,None,3,"PENDING"),
+    # Group E  (Germany, Curaçao, Ivory Coast, Ecuador)
+    ("E","Curaçao","Germany",1,7,1,"WEB"),
+    ("E","Ecuador","Côte d'Ivoire",0,1,1,"WEB"),
+    ("E","Germany","Côte d'Ivoire",2,1,2,"WEB"),
+    ("E","Ecuador","Curaçao",0,0,2,"WEB"),
+    ("E","Germany","Ecuador",None,None,3,"PENDING"),
+    ("E","Côte d'Ivoire","Curaçao",None,None,3,"PENDING"),
+    # Group F  (Netherlands, Japan, Sweden, Tunisia)
     ("F","Japan","Netherlands",2,2,1,"WEB"),
-    ("F","Sweden","Japan",None,None,2,"PENDING"),
-    ("F","Netherlands","Tunisia",None,None,2,"PENDING"),
-    ("F","Netherlands","Sweden",None,None,3,"PENDING"),
-    ("F","Tunisia","Japan",None,None,3,"PENDING"),
-    # Group G
+    ("F","Sweden","Tunisia",5,1,1,"WEB"),
+    ("F","Netherlands","Sweden",5,1,2,"WEB"),
+    ("F","Tunisia","Japan",0,4,2,"WEB"),
+    ("F","Netherlands","Tunisia",None,None,3,"PENDING"),
+    ("F","Sweden","Japan",None,None,3,"PENDING"),
+    # Group G  (Belgium, Egypt, Iran, New Zealand)
     ("G","Belgium","Egypt",1,1,1,"WEB"),
-    ("G","Iran","New Zealand",2,2,1,"WEB"),
-    ("G","Belgium","Iran",None,None,2,"PENDING"),
-    ("G","New Zealand","Egypt",None,None,2,"PENDING"),
-    ("G","Egypt","Iran",None,None,3,"PENDING"),
-    ("G","New Zealand","Belgium",None,None,3,"PENDING"),
-    # Group H
-    ("H","Spain","Cape Verde",0,0,1,"WEB"),
-    ("H","Saudi Arabia","Uruguay",1,1,1,"WEB"),
-    ("H","Spain","Saudi Arabia",None,None,2,"PENDING"),
-    ("H","Uruguay","Cape Verde",None,None,2,"PENDING"),
-    ("H","Cape Verde","Saudi Arabia",None,None,3,"PENDING"),
-    ("H","Uruguay","Spain",None,None,3,"PENDING"),
-    # Group I
+    ("G","New Zealand","Iran",2,2,1,"WEB"),
+    ("G","Belgium","Iran",0,0,2,"WEB"),
+    ("G","New Zealand","Egypt",1,3,2,"WEB"),
+    ("G","Belgium","New Zealand",None,None,3,"PENDING"),
+    ("G","Iran","Egypt",None,None,3,"PENDING"),
+    # Group H  (Spain, Cape Verde, Saudi Arabia, Uruguay)
+    ("H","Cape Verde","Spain",0,0,1,"WEB"),
+    ("H","Uruguay","Saudi Arabia",1,1,1,"WEB"),
+    ("H","Spain","Saudi Arabia",4,0,2,"WEB"),
+    ("H","Uruguay","Cape Verde",2,2,2,"WEB"),
+    ("H","Spain","Uruguay",None,None,3,"PENDING"),
+    ("H","Saudi Arabia","Cape Verde",None,None,3,"PENDING"),
+    # Group I  (France, Senegal, Iraq, Norway)
     ("I","France","Senegal",3,1,1,"WEB"),
     ("I","Norway","Iraq",4,1,1,"WEB"),
-    ("I","France","Norway",None,None,2,"PENDING"),
-    ("I","Senegal","Iraq",None,None,2,"PENDING"),
-    ("I","Iraq","France",None,None,3,"PENDING"),
-    ("I","Senegal","Norway",None,None,3,"PENDING"),
-    # Group J
-    ("J","Argentina","Algeria",3,0,1,"WEB"),
-    ("J","Austria","Jordan",3,1,1,"WEB"),
-    ("J","Argentina","Austria",None,None,2,"PENDING"),
-    ("J","Algeria","Jordan",None,None,2,"PENDING"),
-    ("J","Jordan","Argentina",None,None,3,"PENDING"),
+    ("I","Iraq","France",None,None,2,"PENDING"),
+    ("I","Norway","Senegal",None,None,2,"PENDING"),
+    ("I","France","Norway",None,None,3,"PENDING"),
+    ("I","Iraq","Senegal",None,None,3,"PENDING"),
+    # Group J  (Argentina, Algeria, Austria, Jordan)
+    ("J","Algeria","Argentina",0,3,1,"WEB"),  # original had Argentina 3-0 Algeria → Algeria 0-3 Argentina
+    ("J","Jordan","Austria",1,3,1,"WEB"),  # original had Austria 3-1 Jordan → Jordan 1-3 Austria
+    ("J","Austria","Argentina",None,None,2,"PENDING"),
+    ("J","Jordan","Algeria",None,None,2,"PENDING"),
     ("J","Algeria","Austria",None,None,3,"PENDING"),
-    # Group K
+    ("J","Jordan","Argentina",None,None,3,"PENDING"),
+    # Group K  (Portugal, DR Congo, Uzbekistan, Colombia)
     ("K","Portugal","DR Congo",1,1,1,"WEB"),
     ("K","Uzbekistan","Colombia",1,3,1,"WEB"),
     ("K","Portugal","Uzbekistan",None,None,2,"PENDING"),
-    ("K","DR Congo","Colombia",None,None,2,"PENDING"),
-    ("K","Colombia","Portugal",None,None,3,"PENDING"),
-    ("K","DR Congo","Uzbekistan",None,None,3,"PENDING"),
-    # Group L
-    ("L","England","Croatia",4,2,1,"WEB"),
-    ("L","Ghana","Panama",1,0,1,"WEB"),
+    ("K","Colombia","DR Congo",None,None,2,"PENDING"),
+    ("K","Portugal","Colombia",None,None,3,"PENDING"),
+    ("K","Uzbekistan","DR Congo",None,None,3,"PENDING"),
+    # Group L  (England, Croatia, Ghana, Panama)
+    ("L","Croatia","England",2,4,1,"WEB"),  # original had England 4-2 Croatia → Croatia 2-4 England
+    ("L","Panama","Ghana",0,1,1,"WEB"),  # original had Ghana 1-0 Panama → Panama 0-1 Ghana
     ("L","England","Ghana",None,None,2,"PENDING"),
     ("L","Croatia","Panama",None,None,2,"PENDING"),
-    ("L","Panama","England",None,None,3,"PENDING"),
-    ("L","Croatia","Ghana",None,None,3,"PENDING"),
+    ("L","Ghana","Croatia",None,None,3,"PENDING"),
+    ("L","England","Panama",None,None,3,"PENDING"),
 ]
 
 def parse_pred(output):
@@ -186,7 +187,7 @@ def main():
     lines.append(f"|--------|-------|")
     lines.append(f"| Completed matches | {len(completed)} |")
     lines.append(f"| Upcoming matches | {len(upcoming)} |")
-    lines.append(f"| Historical data | 971 matches (1930-2022) |")
+    lines.append(f"| Historical data | 964 matches (1930-2022) |")
     lines.append(f"")
     lines.append(f"---")
 
@@ -269,8 +270,16 @@ def main():
             for i,(tm,st2) in enumerate(s):
                 lines.append(f"| {i+1} | {tm} | 1 | {st2['w']} | {st2['d']} | {st2['l']} | {st2['gf']} | {st2['ga']} | {st2['gd']:+d} | **{st2['p']}** |")
 
+    # -- Qualification & Bracket Report --
+    from core.bracket import full_qualification_report
+    qual_report = full_qualification_report(MATCHES)
     lines.append(f"\n---")
-    lines.append(f"\n*Data: 971 historical World Cup matches (1930-2022). Engine: Poisson + Causal dual-selector.*")
+    lines.append(f"\n```")
+    lines.append(qual_report)
+    lines.append(f"```")
+
+    lines.append(f"\n---")
+    lines.append(f"\n*Data: 964 historical World Cup matches (1930-2022). Engine: Poisson + Causal dual-selector.*")
     lines.append(f"\n*[Source code](https://github.com/) | *Disclaimer: Statistical model, not betting advice.*")
 
     report = "\n".join(lines)

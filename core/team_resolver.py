@@ -54,6 +54,8 @@ TEAM_NAME_MAP: Dict[str, str] = {
     "斯洛文尼亚": "Slovenia",
     "保加利亚": "Bulgaria",
     "美国": "USA",
+    "United States": "USA",
+    "USA": "USA",
     "墨西哥": "Mexico",
     "加拿大": "Canada",
     "牙买加": "Jamaica",
@@ -103,6 +105,7 @@ TEAM_NAME_MAP: Dict[str, str] = {
 
     # --- 常见简称 → 官方名 ---
     "美国": "USA",
+    "United States": "USA",
     "英格兰": "England",
     "韩国": "South Korea",
     "荷兰": "Netherlands",
@@ -114,10 +117,30 @@ TEAM_NAME_MAP: Dict[str, str] = {
     "刚果(金)": "DR Congo",
     "刚果（金）": "DR Congo",
 
-    # --- 土耳其名特殊（DB 存储为 "Turkey"） ---
+    # --- 土耳其名特殊（DB 存储为 "Turkey"，与 _TEAM_BASE_DATA 一致） ---
     "Türkiye": "Turkey",
     "Turkiye": "Turkey",
     "Turkey": "Turkey",
+
+    # --- 本屆新增球队 ---
+    "波黑": "Bosnia and Herzegovina",
+    "波斯尼亚和黑塞哥维那": "Bosnia and Herzegovina",
+    "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+    "海地": "Haiti",
+    "Haiti": "Haiti",
+    "库拉索": "Curaçao",
+    "Curacao": "Curaçao",
+    "Curaçao": "Curaçao",
+    "佛得角": "Cape Verde",
+    "Cabo Verde": "Cape Verde",
+    "Cape Verde": "Cape Verde",
+    "约旦": "Jordan",
+    "Jordan": "Jordan",
+    "南非": "South Africa",
+    "South Africa": "South Africa",
+    "Côte d'Ivoire": "Ivory Coast",
+    "Cote d'Ivoire": "Ivory Coast",
+    "Ivory Coast": "Ivory Coast",
 
     # --- 别名 ---
     "大韩民国": "South Korea",
@@ -165,7 +188,8 @@ def resolve_team_name(name: str) -> str:
     支持：
     - 中文队名（如 "巴西" → "Brazil"）
     - 简称（如 "韩国" → "South Korea"）
-    - 特殊拼写（如 "Türkiye" → "Türkiye"）
+    - 特殊拼写（如 "Türkiye" → "Turkey"）
+    - 链式映射（如 "土耳其" → "Türkiye" → "Turkey"）
     - 已经是英文的透传
 
     Args:
@@ -176,17 +200,25 @@ def resolve_team_name(name: str) -> str:
     """
     trimmed = name.strip()
 
-    # 1. 检查映射表
-    if trimmed in TEAM_NAME_MAP:
-        return TEAM_NAME_MAP[trimmed]
+    # 链式解析：反复查找直到值不在映射表或找到终结点
+    resolved = trimmed
+    visited = set()
+    while resolved in TEAM_NAME_MAP and resolved not in visited:
+        visited.add(resolved)
+        resolved = TEAM_NAME_MAP[resolved]
 
-    # 2. 尝试大小写不敏感匹配
-    for key, value in TEAM_NAME_MAP.items():
-        if key.lower() == trimmed.lower():
-            return value
+    # 如果链式解析未命中，尝试大小写不敏感匹配
+    if resolved == trimmed:
+        for key, value in TEAM_NAME_MAP.items():
+            if key.lower() == trimmed.lower():
+                # 从匹配项开始继续链式解析
+                chain = value
+                while chain in TEAM_NAME_MAP and chain not in visited:
+                    visited.add(chain)
+                    chain = TEAM_NAME_MAP[chain]
+                return chain
 
-    # 3. 英文名透传
-    return trimmed
+    return resolved
 
 
 def _build_lookup(data: Dict) -> Dict[str, dict]:

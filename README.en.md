@@ -4,13 +4,14 @@ A **dual-engine fusion** of Poisson regression + causal inference + multi-source
 
 **Predictions updated daily via GitHub Actions → [`predictions/`](./predictions/)**
 
-- **[2026-06-18 Daily Report](predictions/2026-06-18_daily_report.md)** — 24 backtested matches + 48 upcoming predictions
+- **[2026-06-22 Daily Report](predictions/2026-06-22_daily_report.md)** — 40 backtested matches + 32 upcoming predictions + qualification report
 
 ### Model Performance Tracking
 
-| Date | Predicted | Correct | Accuracy |
-|------|-----------|---------|----------|
-| 2026-06-18 | 24 | 11 | 45.8% |
+| Date | Round | Predicted | Correct | Accuracy |
+|------|-------|-----------|---------|----------|
+| 2026-06-18 | MD1 | 24 | 11 | 45.8% |
+| 2026-06-22 | MD1+MD2 | 40 | 21 | **52.5%** |
 
 _This table updates after each matchday. At tournament end, it becomes a complete model validation report._
 
@@ -18,7 +19,21 @@ _This table updates after each matchday. At tournament end, it becomes a complet
 
 ---
 
-## 📊 MD1 Results — Prediction vs Actual (June 18)
+## 📊 Qualification Status (after MD2)
+
+| Stage | Status |
+|-------|--------|
+| Group winners locked | 12/12 |
+| Top third-placed (8 qualify) | Sweden (F), Scotland (C), Paraguay (D), Cape Verde (H), Belgium (G), DR Congo (K), Czech Republic (A), Ecuador (E) |
+| Matches remaining | 32 (Group MD3) |
+
+Full FIFA tiebreaker resolution (head-to-head mini-league) implemented in [`core/bracket.py`](core/bracket.py).
+
+---
+
+## 📊 MD1+MD2 Results — Prediction vs Actual
+
+### Matchday 1 (11/24 correct, 45.8%)
 
 | Match | Pred | Actual | Result |
 |-------|------|--------|--------|
@@ -49,9 +64,34 @@ _This table updates after each matchday. At tournament end, it becomes a complet
 
 > **Total: 11/24 correct (45.8%)**
 
+### Matchday 2 (10/16 correct, 62.5%)
+
+| Match | Pred | Actual | Result |
+|-------|------|--------|--------|
+| Mexico vs South Korea | H | H | ✅ |
+| Czech Republic vs South Africa | H | D | ❌ |
+| Canada vs Qatar | A | H | ❌ |
+| Switzerland vs Bosnia and Herzegovina | A | H | ❌ |
+| Brazil vs Haiti | H | H | ✅ |
+| Scotland vs Morocco | A | A | ✅ |
+| USA vs Australia | H | H | ✅ |
+| Turkey vs Paraguay | A | A | ✅ |
+| Germany vs Côte d'Ivoire | H | H | ✅ |
+| Ecuador vs Curaçao | H | D | ❌ |
+| Netherlands vs Sweden | H | H | ✅ |
+| Tunisia vs Japan | A | A | ✅ |
+| Belgium vs Iran | H | D | ❌ |
+| New Zealand vs Egypt | H | A | ❌ |
+| Spain vs Saudi Arabia | H | H | ✅ |
+| Uruguay vs Cape Verde | H | D | ❌ |
+
+> **Total: 10/16 correct (62.5%)**
+
+### Combined: **21/40 correct (52.5%)**
+
 ---
 
-## 🔮 MD2 Predictions (June 19)
+## 🔮 MD3 Predictions (Upcoming)
 
 | Match | Pick | Confidence |
 |-------|------|------------|
@@ -92,7 +132,7 @@ Most football prediction projects pick one model and call it a day. This one doe
 - **Transparent by design** — every prediction comes with a confidence score, an engine selection reason, and a probability distribution. No black box
 - **Daily automation** — GitHub Actions runs predictions twice a day with no human intervention
 
-**This is an open-source engineering experiment.** 971 historical matches, 50k MC simulations per match, BPD irrationality detection, Bayesian belief tracking — all in one Python repo. Fork it, break it, make it better.
+**This is an open-source engineering experiment.** 964 historical matches, 50k MC simulations per match, BPD irrationality detection, Bayesian belief tracking, FIFA-compliant qualification & bracket engine — all in one Python repo. Fork it, break it, make it better.
 
 ---
 
@@ -118,7 +158,7 @@ Most football prediction projects pick one model and call it a day. This one doe
 │   (Multi-source odds    │   (Beta-Binomial             │
 │    → λ bias adjustment)  │    belief tracking)          │
 ├────────────────────────────────────────────────────────┤
-│   Data: 971 historical matches (1930-2022) + live odds │
+│   Data: 964 historical matches (1930-2022) + live odds │
 └────────────────────────────────────────────────────────┘
 ```
 
@@ -192,18 +232,19 @@ Mexico vs South Korea | mode=auto
 └── LICENSE              # MIT
 ```
 
-## 🏆 Track Record (MD1)
+## 🏆 Track Record (MD1+MD2)
 
 | Metric | Value |
 |--------|-------|
-| MD1 Completed Matches | 24 |
-| 1X2 Accuracy | **45.8%** (11/24) |
-| Mid-confidence (0.50-0.69) | **57.1%** (8/14) |
-| High-confidence (≥0.70) | 25.0% (1/4) |
+| Completed Matches | 40 |
+| 1X2 Accuracy | **52.5%** (21/40) |
+| MD1 Accuracy | **45.8%** (11/24) |
+| MD2 Accuracy | **62.5%** (10/16) |
+| Mid-confidence (0.50-0.69) | **58.6%** (17/29) |
 
-> 📌 **Note:** The 2026 World Cup has seen historically high upset rates (~50% of matches were draws or upsets).
+> 📌 **Note:** Draw rate remains high (~50% of incorrects were draws).
 
-### Confidence Calibration / Accuracy by Threshold
+### Confidence Calibration / Accuracy by Threshold (MD1 only)
 
 Accuracy **improves significantly** when low-confidence predictions are excluded:
 
@@ -213,11 +254,27 @@ Accuracy **improves significantly** when low-confidence predictions are excluded
 | ≥ 0.40 | 21 | 52.4% | Drops 3 (all wrong) |
 | ≥ 0.50 | 18 | 50.0% | Drops 6 (2/6 correct) |
 | ≥ 0.55 | 17 | 52.9% | Drops 7 (2/7 correct) |
-| **≥ 0.60** | **9** | **66.7%** | **Best threshold — 2/3 accuracy** |
+| **≥ 0.60** | **9** | **66.7%** | Best threshold — 2/3 accuracy |
 | ≥ 0.65 | 6 | 50.0% | Drops 18 (8/18 correct) |
 | ≥ 0.70 | 4 | 25.0% | Worst — model was most confident on upsets |
 
-> **Key insight:** The highest-confidence predictions (≥0.70) were the least accurate — the model was confidently wrong on Brazil-Morocco, Saudi-Uruguay, Japan-Netherlands upsets. Setting `--confidence 0.60` yields 66.7% accuracy while still covering 9/24 matches.
+> **Key insight (MD1):** Highest-confidence predictions (≥0.70) were the least accurate — the model was confidently wrong on Brazil-Morocco, Saudi-Uruguay, Japan-Netherlands upsets.
+
+### Full MD1+MD2 Calibration (40 matches)
+
+| Threshold | Matches Kept | Accuracy |
+|-----------|-------------|----------|
+| All 40 | 40 | 52.5% |
+| ≥ 0.40 | 36 | 55.6% |
+| ≥ 0.50 | 29 | 58.6% |
+| ≥ 0.55 | 23 | 60.9% |
+| ≥ 0.60 | 16 | **62.5%** |
+| ≥ 0.65 | 11 | 54.5% |
+| ≥ 0.70 | 6 | 33.3% |
+
+> **Key insight (MD1+MD2):** The ≥0.60 threshold remains the best calibration point at 62.5% across 16 matches.
+
+---
 
 ## 🧪 How the Selector Works
 

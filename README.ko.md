@@ -1,6 +1,6 @@
 # ⚽ 2026 World Cup Daily Predictor
 
-**듀얼 엔진 퓨전** — 포아송 회귀 + 인과 추론 + 멀티 소스 시장 배당률
+**듀얼 엔진 퓨전** — 포아송 회귀 + 인과 추론 + FIFA 준수 예선 및 토너먼트 엔진 + 멀티 소스 시장 배당률
 
 **GitHub Actions으로 매일 자동 업데이트 → [`predictions/`](./predictions/)**
 
@@ -46,7 +46,7 @@
 │   (Multi-source odds    │   (Beta-Binomial             │
 │    → λ bias adjustment)  │    belief tracking)          │
 ├────────────────────────────────────────────────────────┤
-│   Data: 971 historical matches (1930-2022) + live odds │
+│   Data: 964 historical matches (1930-2022) + live odds │
 └────────────────────────────────────────────────────────┘
 ```
 

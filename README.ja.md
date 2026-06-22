@@ -1,6 +1,6 @@
 # ⚽ 2026 World Cup Daily Predictor
 
-**デュアルエンジン融合** — ポアソン回帰 + 因果推論 + 複数市場オッズ
+**デュアルエンジン融合** — ポアソン回帰 + 因果推論 + FIFA準拠の予選＆トーナメントエンジン + 複数市場オッズ
 
 **GitHub Actions で毎日自動更新 → [`predictions/`](./predictions/)**
 
@@ -46,7 +46,7 @@
 │   (Multi-source odds    │   (Beta-Binomial             │
 │    → λ bias adjustment)  │    belief tracking)          │
 ├────────────────────────────────────────────────────────┤
-│   Data: 971 historical matches (1930-2022) + live odds │
+│   Data: 964 historical matches (1930-2022) + live odds │
 └────────────────────────────────────────────────────────┘
 ```
 

@@ -88,9 +88,6 @@ def fuse(
         odds_home, odds_draw, odds_away = effective_odds
         hb, ab = compute_odds_bias(odds_home, odds_draw, odds_away)
 
-        biased_home = poisson_prediction.expected_home_goals * hb
-        biased_away = poisson_prediction.expected_away_goals * ab
-
         from .engine_poisson import finalize_baseline
         biased_pp = finalize_baseline(
             poisson_prediction.expected_home_goals,

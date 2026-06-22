@@ -1,6 +1,6 @@
 # ⚽ 2026 World Cup Daily Predictor
 
-**Fusion à double moteur** — régression de Poisson + inférence causale + cotes multi-sources
+**Fusion à double moteur** — régression de Poisson + inférence causale + moteur de qualification conforme FIFA + cotes multi-sources
 
 **Prédictions mises à jour quotidiennement via GitHub Actions → [`predictions/`](./predictions/)**
 
@@ -46,7 +46,7 @@ Documentation complète (anglais) : [`README.en.md`](./README.en.md)
 │   (Multi-source odds    │   (Beta-Binomial             │
 │    → λ bias adjustment)  │    belief tracking)          │
 ├────────────────────────────────────────────────────────┤
-│   Data: 971 historical matches (1930-2022) + live odds │
+│   Data: 964 historical matches (1930-2022) + live odds │
 └────────────────────────────────────────────────────────┘
 ```
 

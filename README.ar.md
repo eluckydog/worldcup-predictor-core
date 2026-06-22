@@ -1,6 +1,6 @@
 # ⚽ 2026 World Cup Daily Predictor
 
-**دمج محركين** — انحدار بواسون + الاستدلال السببي + أسعار السوق متعددة المصادر
+**دمج محركين** — انحدار بواسون + الاستدلال السببي + محرك تأهيل متوافق مع FIFA + أسعار السوق متعددة المصادر
 
 **تحديث التوقعات يوميًا عبر GitHub Actions → [`predictions/`](./predictions/)**
 
@@ -46,7 +46,7 @@
 │   (Multi-source odds    │   (Beta-Binomial             │
 │    → λ bias adjustment)  │    belief tracking)          │
 ├────────────────────────────────────────────────────────┤
-│   Data: 971 historical matches (1930-2022) + live odds │
+│   Data: 964 historical matches (1930-2022) + live odds │
 └────────────────────────────────────────────────────────┘
 ```
 

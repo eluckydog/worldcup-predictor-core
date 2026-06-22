@@ -8,60 +8,60 @@
       "group": "A",
       "name": "Group A",
       "teams": [
-        {"name": "USA", "fifa_rank": 11, "is_debutant": false, "is_host": true, "group": "A", "aliases": ["美国", "United States"]},
         {"name": "Mexico", "fifa_rank": 14, "is_debutant": false, "is_host": true, "group": "A", "aliases": ["墨西哥"]},
-        {"name": "Canada", "fifa_rank": 48, "is_debutant": false, "is_host": true, "group": "A", "aliases": ["加拿大"]},
-        {"name": "TBD_A1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "A", "aliases": []}
+        {"name": "South Africa", "fifa_rank": 65, "is_debutant": true, "is_host": false, "group": "A", "aliases": ["南非"]},
+        {"name": "South Korea", "fifa_rank": 23, "is_debutant": false, "is_host": false, "group": "A", "aliases": ["韩国", "大韩民国", "Korea Republic"]},
+        {"name": "Czech Republic", "fifa_rank": 35, "is_debutant": false, "is_host": false, "group": "A", "aliases": ["捷克"]}
       ]
     },
     {
       "group": "B",
       "name": "Group B",
       "teams": [
-        {"name": "Brazil", "fifa_rank": 5, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["巴西"]},
-        {"name": "Italy", "fifa_rank": 9, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["意大利"]},
-        {"name": "Japan", "fifa_rank": 18, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["日本"]},
-        {"name": "Jamaica", "fifa_rank": 60, "is_debutant": true, "is_host": false, "group": "B", "aliases": ["牙买加"]}
+        {"name": "Canada", "fifa_rank": 48, "is_debutant": false, "is_host": true, "group": "B", "aliases": ["加拿大"]},
+        {"name": "Bosnia and Herzegovina", "fifa_rank": 55, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["波黑", "波斯尼亚和黑塞哥维那"]},
+        {"name": "Qatar", "fifa_rank": 50, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["卡塔尔"]},
+        {"name": "Switzerland", "fifa_rank": 17, "is_debutant": false, "is_host": false, "group": "B", "aliases": ["瑞士"]}
       ]
     },
     {
       "group": "C",
       "name": "Group C",
       "teams": [
-        {"name": "France", "fifa_rank": 2, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["法国"]},
-        {"name": "Netherlands", "fifa_rank": 6, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["荷兰"]},
-        {"name": "Nigeria", "fifa_rank": 38, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["尼日利亚"]},
-        {"name": "TBD_C1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "C", "aliases": []}
+        {"name": "Brazil", "fifa_rank": 5, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["巴西"]},
+        {"name": "Morocco", "fifa_rank": 13, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["摩洛哥"]},
+        {"name": "Haiti", "fifa_rank": 95, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["海地"]},
+        {"name": "Scotland", "fifa_rank": 40, "is_debutant": false, "is_host": false, "group": "C", "aliases": ["苏格兰"]}
       ]
     },
     {
       "group": "D",
       "name": "Group D",
       "teams": [
-        {"name": "Argentina", "fifa_rank": 1, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["阿根廷"]},
-        {"name": "England", "fifa_rank": 4, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["英格兰"]},
-        {"name": "Senegal", "fifa_rank": 20, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["塞内加尔"]},
-        {"name": "TBD_D1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "D", "aliases": []}
+        {"name": "USA", "fifa_rank": 11, "is_debutant": false, "is_host": true, "group": "D", "aliases": ["美国", "United States"]},
+        {"name": "Paraguay", "fifa_rank": 55, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["巴拉圭"]},
+        {"name": "Australia", "fifa_rank": 29, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["澳大利亚"]},
+        {"name": "Turkey", "fifa_rank": 35, "is_debutant": false, "is_host": false, "group": "D", "aliases": ["土耳其", "Türkiye", "Turkiye"]}
       ]
     },
     {
       "group": "E",
       "name": "Group E",
       "teams": [
-        {"name": "Spain", "fifa_rank": 8, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["西班牙"]},
         {"name": "Germany", "fifa_rank": 10, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["德国"]},
-        {"name": "South Korea", "fifa_rank": 23, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["韩国", "Korea Republic"]},
-        {"name": "TBD_E1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "E", "aliases": []}
+        {"name": "Curaçao", "fifa_rank": 80, "is_debutant": true, "is_host": false, "group": "E", "aliases": ["库拉索", "Curacao"]},
+        {"name": "Ivory Coast", "fifa_rank": 42, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["科特迪瓦", "Côte d'Ivoire", "Cote d'Ivoire"]},
+        {"name": "Ecuador", "fifa_rank": 32, "is_debutant": false, "is_host": false, "group": "E", "aliases": ["厄瓜多尔"]}
       ]
     },
     {
       "group": "F",
       "name": "Group F",
       "teams": [
-        {"name": "Portugal", "fifa_rank": 7, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["葡萄牙"]},
-        {"name": "Uruguay", "fifa_rank": 15, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["乌拉圭"]},
-        {"name": "Croatia", "fifa_rank": 12, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["克罗地亚"]},
-        {"name": "TBD_F1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "F", "aliases": []}
+        {"name": "Netherlands", "fifa_rank": 6, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["荷兰"]},
+        {"name": "Japan", "fifa_rank": 18, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["日本", "日本国"]},
+        {"name": "Sweden", "fifa_rank": 25, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["瑞典"]},
+        {"name": "Tunisia", "fifa_rank": 30, "is_debutant": false, "is_host": false, "group": "F", "aliases": ["突尼斯"]}
       ]
     },
     {
@@ -69,60 +69,134 @@
       "name": "Group G",
       "teams": [
         {"name": "Belgium", "fifa_rank": 3, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["比利时"]},
-        {"name": "Colombia", "fifa_rank": 16, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["哥伦比亚"]},
-        {"name": "Morocco", "fifa_rank": 13, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["摩洛哥"]},
-        {"name": "TBD_G1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "G", "aliases": []}
+        {"name": "Egypt", "fifa_rank": 38, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["埃及"]},
+        {"name": "Iran", "fifa_rank": 21, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["伊朗", "伊朗伊斯兰共和国"]},
+        {"name": "New Zealand", "fifa_rank": 105, "is_debutant": false, "is_host": false, "group": "G", "aliases": ["新西兰"]}
       ]
     },
     {
       "group": "H",
       "name": "Group H",
       "teams": [
-        {"name": "Switzerland", "fifa_rank": 17, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["瑞士"]},
-        {"name": "Ecuador", "fifa_rank": 32, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["厄瓜多尔"]},
-        {"name": "Iran", "fifa_rank": 21, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["伊朗"]},
-        {"name": "TBD_H1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "H", "aliases": []}
+        {"name": "Spain", "fifa_rank": 8, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["西班牙"]},
+        {"name": "Cape Verde", "fifa_rank": 70, "is_debutant": true, "is_host": false, "group": "H", "aliases": ["佛得角", "Cabo Verde"]},
+        {"name": "Saudi Arabia", "fifa_rank": 53, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["沙特阿拉伯", "沙特"]},
+        {"name": "Uruguay", "fifa_rank": 15, "is_debutant": false, "is_host": false, "group": "H", "aliases": ["乌拉圭"]}
       ]
     },
     {
       "group": "I",
       "name": "Group I",
       "teams": [
-        {"name": "Denmark", "fifa_rank": 19, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["丹麦"]},
-        {"name": "Australia", "fifa_rank": 29, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["澳大利亚"]},
-        {"name": "Türkiye", "fifa_rank": 35, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["土耳其", "Turkey"]},
-        {"name": "TBD_I1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "I", "aliases": []}
+        {"name": "France", "fifa_rank": 2, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["法国"]},
+        {"name": "Senegal", "fifa_rank": 20, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["塞内加尔"]},
+        {"name": "Iraq", "fifa_rank": 70, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["伊拉克"]},
+        {"name": "Norway", "fifa_rank": 45, "is_debutant": false, "is_host": false, "group": "I", "aliases": ["挪威"]}
       ]
     },
     {
       "group": "J",
       "name": "Group J",
       "teams": [
-        {"name": "Poland", "fifa_rank": 28, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["波兰"]},
-        {"name": "Cameroon", "fifa_rank": 44, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["喀麦隆"]},
-        {"name": "Saudi Arabia", "fifa_rank": 53, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["沙特阿拉伯", "沙特"]},
-        {"name": "TBD_J1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "J", "aliases": []}
+        {"name": "Argentina", "fifa_rank": 1, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["阿根廷"]},
+        {"name": "Algeria", "fifa_rank": 45, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["阿尔及利亚"]},
+        {"name": "Austria", "fifa_rank": 28, "is_debutant": false, "is_host": false, "group": "J", "aliases": ["奥地利"]},
+        {"name": "Jordan", "fifa_rank": 85, "is_debutant": true, "is_host": false, "group": "J", "aliases": ["约旦"]}
       ]
     },
     {
       "group": "K",
       "name": "Group K",
       "teams": [
-        {"name": "Serbia", "fifa_rank": 33, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["塞尔维亚"]},
-        {"name": "Peru", "fifa_rank": 31, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["秘鲁"]},
-        {"name": "Ghana", "fifa_rank": 58, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["加纳"]},
-        {"name": "TBD_K1", "fifa_rank": null, "is_debutant": false, "is_host": false, "group": "K", "aliases": []}
+        {"name": "Portugal", "fifa_rank": 7, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["葡萄牙"]},
+        {"name": "DR Congo", "fifa_rank": 65, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["刚果民主共和国", "刚果(金)", "刚果（金）", "DRC"]},
+        {"name": "Uzbekistan", "fifa_rank": 75, "is_debutant": true, "is_host": false, "group": "K", "aliases": ["乌兹别克斯坦"]},
+        {"name": "Colombia", "fifa_rank": 16, "is_debutant": false, "is_host": false, "group": "K", "aliases": ["哥伦比亚"]}
       ]
     },
     {
       "group": "L",
       "name": "Group L",
       "teams": [
-        {"name": "TBD_L0", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []},
-        {"name": "TBD_L1", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []},
-        {"name": "TBD_L2", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []},
-        {"name": "TBD_L3", "fifa_rank": null, "is_debutant": true, "is_host": false, "group": "L", "aliases": []}
+        {"name": "England", "fifa_rank": 4, "is_debutant": false, "is_host": false, "group": "L", "aliases": ["英格兰", "UK", "大不列颠"]},
+        {"name": "Croatia", "fifa_rank": 12, "is_debutant": false, "is_host": false, "group": "L", "aliases": ["克罗地亚"]},
+        {"name": "Ghana", "fifa_rank": 58, "is_debutant": false, "is_host": false, "group": "L", "aliases": ["加纳"]},
+        {"name": "Panama", "fifa_rank": 60, "is_debutant": false, "is_host": false, "group": "L", "aliases": ["巴拿马"]}
       ]
     }
+  ],
+  "schedule": [
+    {"matchday": 1, "date": "2026-06-12", "group": "A", "home": "Mexico", "away": "South Africa", "time": "03:00", "venue": "阿兹特克体育场，墨西哥城"},
+    {"matchday": 1, "date": "2026-06-12", "group": "A", "home": "South Korea", "away": "Czech Republic", "time": "10:00", "venue": "阿克伦球场，萨波潘"},
+    {"matchday": 1, "date": "2026-06-13", "group": "B", "home": "Bosnia and Herzegovina", "away": "Canada", "time": "03:00", "venue": "BMO 球场，多伦多"},
+    {"matchday": 1, "date": "2026-06-14", "group": "B", "home": "Switzerland", "away": "Qatar", "time": "03:00", "venue": "李维斯体育场，圣克拉拉"},
+    {"matchday": 1, "date": "2026-06-14", "group": "C", "home": "Morocco", "away": "Brazil", "time": "06:00", "venue": "大都会人寿体育场，东拉瑟福德"},
+    {"matchday": 1, "date": "2026-06-14", "group": "C", "home": "Scotland", "away": "Haiti", "time": "09:00", "venue": "吉列体育场，福克斯伯勒"},
+    {"matchday": 1, "date": "2026-06-14", "group": "D", "home": "Paraguay", "away": "USA", "time": "09:00", "venue": "洛杉矶"},
+    {"matchday": 1, "date": "2026-06-14", "group": "D", "home": "Turkey", "away": "Australia", "time": "12:00", "venue": "温哥华"},
+    {"matchday": 1, "date": "2026-06-15", "group": "E", "home": "Curaçao", "away": "Germany", "time": "01:00", "venue": "休斯顿"},
+    {"matchday": 1, "date": "2026-06-15", "group": "E", "home": "Ecuador", "away": "Ivory Coast", "time": "07:00", "venue": "费城"},
+    {"matchday": 1, "date": "2026-06-15", "group": "F", "home": "Japan", "away": "Netherlands", "time": "04:00", "venue": "达拉斯"},
+    {"matchday": 1, "date": "2026-06-15", "group": "F", "home": "Sweden", "away": "Tunisia", "time": "10:00", "venue": "瓜达卢佩"},
+    {"matchday": 1, "date": "2026-06-16", "group": "G", "home": "Belgium", "away": "Egypt", "time": "03:00", "venue": "西雅图"},
+    {"matchday": 1, "date": "2026-06-16", "group": "G", "home": "New Zealand", "away": "Iran", "time": "09:00", "venue": "洛杉矶"},
+    {"matchday": 1, "date": "2026-06-16", "group": "H", "home": "Cape Verde", "away": "Spain", "time": "00:00", "venue": "亚特兰大"},
+    {"matchday": 1, "date": "2026-06-16", "group": "H", "home": "Uruguay", "away": "Saudi Arabia", "time": "06:00", "venue": "迈阿密"},
+    {"matchday": 1, "date": "2026-06-17", "group": "I", "home": "France", "away": "Senegal", "time": "03:00", "venue": "纽约/新泽西"},
+    {"matchday": 1, "date": "2026-06-17", "group": "I", "home": "Norway", "away": "Iraq", "time": "06:00", "venue": "波士顿"},
+    {"matchday": 1, "date": "2026-06-17", "group": "J", "home": "Jordan", "away": "Austria", "time": "12:00", "venue": "旧金山"},
+    {"matchday": 1, "date": "2026-06-18", "group": "J", "home": "Algeria", "away": "Argentina", "time": "09:00", "venue": "堪萨斯城"},
+    {"matchday": 1, "date": "2026-06-18", "group": "K", "home": "Portugal", "away": "DR Congo", "time": "01:00", "venue": "休斯顿"},
+    {"matchday": 1, "date": "2026-06-18", "group": "K", "home": "Uzbekistan", "away": "Colombia", "time": "10:00", "venue": "墨西哥城阿兹特克"},
+    {"matchday": 1, "date": "2026-06-18", "group": "L", "home": "Croatia", "away": "England", "time": "04:00", "venue": "达拉斯"},
+    {"matchday": 1, "date": "2026-06-18", "group": "L", "home": "Panama", "away": "Ghana", "time": "07:00", "venue": "多伦多"},
+    {"matchday": 2, "date": "2026-06-19", "group": "A", "home": "Czech Republic", "away": "South Africa", "time": "00:00", "venue": "梅赛德斯-奔驰体育场，亚特兰大"},
+    {"matchday": 2, "date": "2026-06-19", "group": "A", "home": "Mexico", "away": "South Korea", "time": "09:00", "venue": "阿克伦球场，萨波潘"},
+    {"matchday": 2, "date": "2026-06-19", "group": "B", "home": "Bosnia and Herzegovina", "away": "Switzerland", "time": "03:00", "venue": "SoFi 体育场，英格尔伍德"},
+    {"matchday": 2, "date": "2026-06-19", "group": "B", "home": "Canada", "away": "Qatar", "time": "06:00", "venue": "卑诗体育馆，温哥华"},
+    {"matchday": 2, "date": "2026-06-20", "group": "C", "home": "Scotland", "away": "Morocco", "time": "06:00", "venue": "吉列体育场，福克斯伯勒"},
+    {"matchday": 2, "date": "2026-06-20", "group": "C", "home": "Brazil", "away": "Haiti", "time": "08:30", "venue": "林肯金融球场，费城"},
+    {"matchday": 2, "date": "2026-06-20", "group": "D", "home": "Australia", "away": "USA", "time": "03:00", "venue": "西雅图"},
+    {"matchday": 2, "date": "2026-06-21", "group": "D", "home": "Paraguay", "away": "Turkey", "time": "11:00", "venue": "旧金山"},
+    {"matchday": 2, "date": "2026-06-21", "group": "E", "home": "Ivory Coast", "away": "Germany", "time": "04:00", "venue": "多伦多"},
+    {"matchday": 2, "date": "2026-06-22", "group": "E", "home": "Curaçao", "away": "Ecuador", "time": "08:00", "venue": "堪萨斯城"},
+    {"matchday": 2, "date": "2026-06-21", "group": "F", "home": "Sweden", "away": "Netherlands", "time": "01:00", "venue": "休斯顿"},
+    {"matchday": 2, "date": "2026-06-21", "group": "F", "home": "Japan", "away": "Tunisia", "time": "12:00", "venue": "瓜达卢佩"},
+    {"matchday": 2, "date": "2026-06-22", "group": "G", "home": "Iran", "away": "Belgium", "time": "03:00", "venue": "洛杉矶"},
+    {"matchday": 2, "date": "2026-06-22", "group": "G", "home": "New Zealand", "away": "Egypt", "time": "09:00", "venue": "温哥华"},
+    {"matchday": 2, "date": "2026-06-22", "group": "H", "home": "Saudi Arabia", "away": "Spain", "time": "00:00", "venue": "亚特兰大"},
+    {"matchday": 2, "date": "2026-06-22", "group": "H", "home": "Cape Verde", "away": "Uruguay", "time": "06:00", "venue": "迈阿密"},
+    {"matchday": 2, "date": "2026-06-23", "group": "I", "home": "Iraq", "away": "France", "time": "05:00", "venue": "费城"},
+    {"matchday": 2, "date": "2026-06-23", "group": "I", "home": "Norway", "away": "Senegal", "time": "08:00", "venue": "纽约/新泽西"},
+    {"matchday": 2, "date": "2026-06-23", "group": "J", "home": "Austria", "away": "Argentina", "time": "01:00", "venue": "达拉斯"},
+    {"matchday": 2, "date": "2026-06-23", "group": "J", "home": "Jordan", "away": "Algeria", "time": "11:00", "venue": "旧金山"},
+    {"matchday": 2, "date": "2026-06-24", "group": "K", "home": "Portugal", "away": "Uzbekistan", "time": "01:00", "venue": "休斯顿"},
+    {"matchday": 2, "date": "2026-06-24", "group": "K", "home": "Colombia", "away": "DR Congo", "time": "10:00", "venue": "阿克伦球场，萨波潘"},
+    {"matchday": 2, "date": "2026-06-24", "group": "L", "home": "Ghana", "away": "England", "time": "04:00", "venue": "波士顿"},
+    {"matchday": 2, "date": "2026-06-24", "group": "L", "home": "Croatia", "away": "Panama", "time": "07:00", "venue": "多伦多"},
+    {"matchday": 3, "date": "2026-06-25", "group": "A", "home": "South Africa", "away": "South Korea", "time": "09:00", "venue": "BBVA 体育场，瓜达卢佩"},
+    {"matchday": 3, "date": "2026-06-25", "group": "A", "home": "Czech Republic", "away": "Mexico", "time": "09:00", "venue": "阿兹特克体育场，墨西哥城"},
+    {"matchday": 3, "date": "2026-06-25", "group": "B", "home": "Switzerland", "away": "Canada", "time": "03:00", "venue": "卑诗体育馆，温哥华"},
+    {"matchday": 3, "date": "2026-06-25", "group": "B", "home": "Qatar", "away": "Bosnia and Herzegovina", "time": "03:00", "venue": "流明球场，西雅图"},
+    {"matchday": 3, "date": "2026-06-25", "group": "C", "home": "Brazil", "away": "Scotland", "time": "06:00", "venue": "硬石体育场，迈阿密加登斯"},
+    {"matchday": 3, "date": "2026-06-25", "group": "C", "home": "Morocco", "away": "Haiti", "time": "06:00", "venue": "梅赛德斯-奔驰体育场，亚特兰大"},
+    {"matchday": 3, "date": "2026-06-26", "group": "D", "home": "USA", "away": "Turkey", "time": "10:00", "venue": "待定"},
+    {"matchday": 3, "date": "2026-06-26", "group": "D", "home": "Australia", "away": "Paraguay", "time": "10:00", "venue": "旧金山"},
+    {"matchday": 3, "date": "2026-06-26", "group": "E", "home": "Germany", "away": "Ecuador", "time": "04:00", "venue": "纽约/新泽西"},
+    {"matchday": 3, "date": "2026-06-26", "group": "E", "home": "Ivory Coast", "away": "Curaçao", "time": "04:00", "venue": "费城"},
+    {"matchday": 3, "date": "2026-06-26", "group": "F", "home": "Netherlands", "away": "Tunisia", "time": "07:00", "venue": "堪萨斯城"},
+    {"matchday": 3, "date": "2026-06-26", "group": "F", "home": "Sweden", "away": "Japan", "time": "07:00", "venue": "达拉斯"},
+    {"matchday": 3, "date": "2026-06-27", "group": "I", "home": "France", "away": "Norway", "time": "03:00", "venue": "波士顿"},
+    {"matchday": 3, "date": "2026-06-27", "group": "I", "home": "Iraq", "away": "Senegal", "time": "03:00", "venue": "多伦多"},
+    {"matchday": 3, "date": "2026-06-28", "group": "G", "home": "Belgium", "away": "New Zealand", "time": "11:00", "venue": "温哥华"},
+    {"matchday": 3, "date": "2026-06-28", "group": "G", "home": "Iran", "away": "Egypt", "time": "11:00", "venue": "西雅图"},
+    {"matchday": 3, "date": "2026-06-28", "group": "H", "home": "Spain", "away": "Uruguay", "time": "08:00", "venue": "瓜达拉哈拉"},
+    {"matchday": 3, "date": "2026-06-28", "group": "H", "home": "Saudi Arabia", "away": "Cape Verde", "time": "08:00", "venue": "休斯顿"},
+    {"matchday": 3, "date": "2026-06-28", "group": "J", "home": "Algeria", "away": "Austria", "time": "10:00", "venue": "堪萨斯城"},
+    {"matchday": 3, "date": "2026-06-28", "group": "J", "home": "Jordan", "away": "Argentina", "time": "10:00", "venue": "达拉斯"},
+    {"matchday": 3, "date": "2026-06-28", "group": "K", "home": "Portugal", "away": "Colombia", "time": "07:30", "venue": "迈阿密"},
+    {"matchday": 3, "date": "2026-06-28", "group": "K", "home": "Uzbekistan", "away": "DR Congo", "time": "07:30", "venue": "亚特兰大"},
+    {"matchday": 3, "date": "2026-06-28", "group": "L", "home": "Ghana", "away": "Croatia", "time": "05:00", "venue": "费城"},
+    {"matchday": 3, "date": "2026-06-28", "group": "L", "home": "England", "away": "Panama", "time": "05:00", "venue": "纽约/新泽西"}
   ]
 }

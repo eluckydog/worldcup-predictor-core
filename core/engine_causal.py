@@ -575,7 +575,7 @@ class FootballCausalEngine:
         confidence = max(0.2, min(0.95, confidence))
         return home_win, draw, away_win, confidence
 
-def predict(self, context: MatchContext) -> CausalPrediction:
+    def predict(self, context: MatchContext) -> CausalPrediction:
         """
         因果引擎预测接口。
 

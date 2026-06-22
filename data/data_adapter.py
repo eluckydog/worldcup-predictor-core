@@ -104,76 +104,13 @@ class DataAdapter:
             )
 
         conn = self._get_conn()
-        cursor = conn.execute(
-            "SELECT home_score, away_score, "
-            "       aet_home, aet_away, penalties_home, penalties_away "
-            "FROM matches WHERE home_team_id = ? OR away_team_id = ?",
-            (tid, tid),
-        )
 
-        matches_played = 0
         wins = 0
         draws = 0
         losses = 0
         goals_for = 0
         goals_against = 0
         clean_sheets = 0
-
-        for row in cursor:
-            matches_played += 1
-            is_home = True  # we'll derive from query later for simplicity
-            if row[0] is not None:
-                gf = row[0]
-                ga = row[1]
-            else:
-                gf = row[2] if row[2] is not None else 0
-                ga = row[3] if row[3] is not None else 0
-
-            goals_for += gf
-            goals_against += ga
-
-            if gf > ga:
-                wins += 1
-            elif gf == ga:
-                draws += 1
-            else:
-                losses += 1
-
-            if ga == 0:
-                clean_sheets += 1
-
-        # 同时也查询作为客队的比赛
-        cursor2 = conn.execute(
-            "SELECT home_score, away_score, "
-            "       aet_home, aet_away, penalties_home, penalties_away "
-            "FROM matches WHERE away_team_id = ?",
-            (tid,),
-        )
-        for row in cursor2:
-            # 这里 row 是作为客队，所以 goals_for = away_score, goals_against = home_score
-            gf = row[1]  # away_score
-            ga = row[0]  # home_score
-            goals_for += gf
-            goals_against += ga
-            if gf > ga:
-                wins += 1
-            elif gf == ga:
-                draws += 1
-            else:
-                losses += 1
-            if ga == 0:
-                clean_sheets += 1
-
-        # 注意：上面用独立查询处理了作为主队和客队的情况，实际上每个比赛会被统计两次
-        # 修复：只查一次，区分主客场
-        matches_played_home = 0
-        matches_played_away = 0
-        goals_for_home = 0
-        goals_against_home = 0
-        goals_for_away = 0
-        goals_against_away = 0
-        clean_sheets_home = 0
-        clean_sheets_away = 0
 
         cursor3 = conn.execute(
             "SELECT home_score, away_score, "
@@ -182,13 +119,18 @@ class DataAdapter:
             (tid,),
         )
         for row in cursor3:
-            matches_played_home += 1
             gf = row[0] if row[0] is not None else (row[2] if row[2] is not None else 0)
             ga = row[1] if row[1] is not None else (row[3] if row[3] is not None else 0)
-            goals_for_home += gf
-            goals_against_home += ga
+            goals_for += gf
+            goals_against += ga
+            if gf > ga:
+                wins += 1
+            elif gf == ga:
+                draws += 1
+            else:
+                losses += 1
             if ga == 0:
-                clean_sheets_home += 1
+                clean_sheets += 1
 
         cursor4 = conn.execute(
             "SELECT home_score, away_score, "
@@ -197,21 +139,23 @@ class DataAdapter:
             (tid,),
         )
         for row in cursor4:
-            matches_played_away += 1
             gf = row[1] if row[1] is not None else (row[3] if row[3] is not None else 0)
             ga = row[0] if row[0] is not None else (row[2] if row[2] is not None else 0)
-            goals_for_away += gf
-            goals_against_away += ga
+            goals_for += gf
+            goals_against += ga
+            if gf > ga:
+                wins += 1
+            elif gf == ga:
+                draws += 1
+            else:
+                losses += 1
             if ga == 0:
-                clean_sheets_away += 1
+                clean_sheets += 1
 
-        total_matches = matches_played_home + matches_played_away
-        total_gf = goals_for_home + goals_for_away
-        total_ga = goals_against_home + goals_against_away
-        total_cs = clean_sheets_home + clean_sheets_away
+        total_matches = wins + draws + losses
 
-        avg_scored = round(total_gf / max(total_matches, 1), 4)
-        avg_conceded = round(total_ga / max(total_matches, 1), 4)
+        avg_scored = round(goals_for / max(total_matches, 1), 4)
+        avg_conceded = round(goals_against / max(total_matches, 1), 4)
 
         # 获取最早和最晚参赛年份
         cursor5 = conn.execute(
@@ -240,11 +184,11 @@ class DataAdapter:
             wins=wins,
             draws=draws,
             losses=losses,
-            goals_for=total_gf,
-            goals_against=total_ga,
+            goals_for=goals_for,
+            goals_against=goals_against,
             avg_scored=avg_scored,
             avg_conceded=avg_conceded,
-            clean_sheets=total_cs,
+            clean_sheets=clean_sheets,
             first_year=first_year,
             last_year=last_year,
         )
@@ -337,7 +281,7 @@ class DataAdapter:
 
         conn = self._get_conn()
         cursor = conn.execute(
-            "SELECT m.home_team_id, m.home_score, m.away_score, "
+            "SELECT m.home_team_id, m.away_team_id, m.home_score, m.away_score, "
             "       t.year, m.stage, "
             "       m.aet_home, m.aet_away, m.penalties_home, m.penalties_away "
             "FROM matches m "
@@ -350,13 +294,15 @@ class DataAdapter:
 
         results: List[RecentMatch] = []
         for row in cursor:
-            is_home = row[0] == tid
-            gf = row[1] if is_home else row[2]
-            ga = row[2] if is_home else row[1]
+            home_team_id = row[0]
+            away_team_id = row[1]
+            is_home = home_team_id == tid
+            gf = row[2] if is_home else row[3]
+            ga = row[3] if is_home else row[2]
 
             # 使用 aet 数据（如果有）
-            aet_home = row[5]
-            aet_away = row[6]
+            aet_home = row[6]
+            aet_away = row[7]
             if aet_home is not None or aet_away is not None:
                 if is_home:
                     gf = aet_home if aet_home is not None else gf
@@ -366,9 +312,10 @@ class DataAdapter:
                     ga = aet_home if aet_home is not None else ga
 
             # 获取对手名称
+            opponent_id = away_team_id if is_home else home_team_id
             opponent_conn = conn.execute(
                 "SELECT name FROM teams WHERE id = ?",
-                (row[3] if is_home else row[0],),
+                (opponent_id,),
             )
             opp_row = opponent_conn.fetchone()
             opponent = opp_row[0] if opp_row else "Unknown"
